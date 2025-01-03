@@ -160,6 +160,8 @@ class data_sampler_CFRL(object):
                     sample = {}
                     items = line.strip().split('\t')
                     if (len(items[0]) > 0):
+                        if "train" in file and len(items) != 11:
+                            print(items)
                         sample['relation'] = int(items[0]) - 1
                         sample['index'] = i
                         if items[1] != 'noNegativeAnswer':

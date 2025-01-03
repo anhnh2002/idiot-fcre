@@ -156,7 +156,7 @@ class Manager(object):
                 hidden = encoder(instance) # b, dim
                 loss1 = self.moment.contrastive_loss(hidden, labels, is_memory)
                 labels_des = encoder(batch_instance, is_des = True) # b, dim
-                rd = encoder(batch_instance, is_rd=True) # b, dim
+                rd = encoder(instance, is_rd=True) # b, dim
 
                 # compute hard margin contrastive loss
                 hard_margin_loss = HardMarginLoss()
@@ -167,34 +167,34 @@ class Manager(object):
                     loss3.append(hard_margin_loss(rep_des, hidden, label_for_loss))
                 loss3 = torch.stack(loss3).mean()
 
-                # compute hard margin constrastive loss for relation description: rd vs labels_des
-                hard_margin_loss = HardMarginLoss()
-                loss3_1 = []
-                for idx in range(len(labels)):
-                    rep_des = labels_des[idx]
-                    label_for_loss = labels == labels[idx]
-                    loss3_1.append(hard_margin_loss(rep_des, rd, label_for_loss))
-                loss3_1 = torch.stack(loss3_1).mean()
-
 
                 # compute hard margin constrastive loss for relation description: rd vs hidden
-                hard_margin_loss = HardMarginLoss()
-                loss3_2 = []
+                hard_margin_loss_1 = HardMarginLoss()
+                loss3_1 = []
                 for idx in range(len(labels)):
                     rep_rd = rd[idx]
                     label_for_loss = labels == labels[idx]
-                    loss3_2.append(hard_margin_loss(rep_rd, hidden, label_for_loss))
+                    loss3_1.append(hard_margin_loss_1(rep_rd, hidden, label_for_loss))
+                loss3_1 = torch.stack(loss3_1).mean()
+
+                # compute hard margin constrastive loss for relation description: rd vs labels_des
+                hard_margin_loss_2 = HardMarginLoss()
+                loss3_2 = []
+                for idx in range(len(labels)):
+                    rep_des = labels_des[idx]
+                    label_for_loss = labels == labels[idx]
+                    loss3_2.append(hard_margin_loss_2(rep_des, rd, label_for_loss))
                 loss3_2 = torch.stack(loss3_2).mean()
 
 
                 loss_retrieval = MutualInformationLoss()
                 loss2 = loss_retrieval(hidden, labels_des, new_matrix_labels_tensor)
 
-                loss_retrieval = MutualInformationLoss()
-                loss2_1 = loss_retrieval(hidden, rd, new_matrix_labels_tensor)
+                loss_retrieval_1 = MutualInformationLoss()
+                loss2_1 = loss_retrieval_1(hidden, rd, new_matrix_labels_tensor)
 
-                loss_retrieval = MutualInformationLoss()
-                loss2_2 = loss_retrieval(rd, labels_des, new_matrix_labels_tensor)
+                loss_retrieval_2 = MutualInformationLoss()
+                loss2_2 = loss_retrieval_2(rd, labels_des, new_matrix_labels_tensor)
 
 
                 # compute soft margin triplet loss
@@ -204,7 +204,8 @@ class Manager(object):
                 else:
                     loss4 = 0.0
 
-                loss = 1*loss1 + 2*(loss2 + loss2_1 + loss2_2) + 0.5*(loss3 + loss3_1 + loss3_2) + 1*loss4
+                loss = 1*loss1 + 2*(0.5*loss2 + 0.4*loss2_1 + 0.1*loss2_2) + 0.5*(0.5*loss3 + 0.4*loss3_1 + 0.1*loss3_2) + 1*loss4
+                # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
             
                 
                 optimizer.zero_grad()
@@ -413,6 +414,7 @@ class Manager(object):
             training_data_initialize = []
             for rel in current_relations:
                 training_data_initialize += training_data[rel]
+            
             self.moment.init_moment(encoder, training_data_initialize, is_memory=False)
             self.train_model(encoder, training_data_initialize, seen_des)
 
