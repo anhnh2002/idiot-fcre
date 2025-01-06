@@ -204,7 +204,7 @@ class Manager(object):
                 else:
                     loss4 = 0.0
 
-                loss = 1*loss1 + 2*(0.5*loss2 + 0.4*loss2_1 + 0.1*loss2_2) + 0.5*(0.5*loss3 + 0.4*loss3_1 + 0.1*loss3_2) + 1*loss4
+                loss = 1*loss1 + 2*(0.5*loss2 + 0.1*loss2_1 + 0.4*loss2_2) + 0.5*(0.5*loss3 + 0.1*loss3_1 + 0.4*loss3_2) + 1*loss4
                 # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
             
                 
