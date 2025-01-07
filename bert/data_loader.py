@@ -43,6 +43,7 @@ class BERTDataset(Dataset):
         if data[0][0]['rd_ids']:
             batch_instance['rd_ids'] = torch.tensor([item[0]['rd_ids'] for item in data])
             batch_instance['rd_mask'] = torch.tensor([item[0]['rd_mask'] for item in data])
+            batch_instance['trigger_mask'] = torch.tensor([item[0]['trigger_mask'] for item in data])
 
         batch_idx = torch.tensor([item[1] for item in data])
         

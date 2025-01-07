@@ -153,7 +153,7 @@ class Manager(object):
                 # labels tensor shape b*b
                 
                 
-                hidden = encoder(instance) # b, dim
+                hidden, trigger_loss = encoder(instance) # b, dim
                 loss1 = self.moment.contrastive_loss(hidden, labels, is_memory)
                 labels_des = encoder(batch_instance, is_des = True) # b, dim
                 rd = encoder(instance, is_rd=True) # b, dim
@@ -204,8 +204,8 @@ class Manager(object):
                 else:
                     loss4 = 0.0
 
-                loss = 1*loss1 + 2*(0.5*loss2 + 0.1*loss2_1 + 0.4*loss2_2) + 0.5*(0.5*loss3 + 0.1*loss3_1 + 0.4*loss3_2) + 1*loss4
-                # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
+                # loss = 1*loss1 + 2*(0.5*loss2 + 0.1*loss2_1 + 0.4*loss2_2) + 0.5*(0.5*loss3 + 0.1*loss3_1 + 0.4*loss3_2) + 1*loss4 + 1*trigger_loss
+                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4 + 1*trigger_loss
             
                 
                 optimizer.zero_grad()

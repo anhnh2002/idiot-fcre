@@ -2,7 +2,7 @@ import pickle
 import os 
 import random
 import numpy as np
-from transformers import BertTokenizer, RobertaTokenizer
+from transformers import BertTokenizer, RobertaTokenizer, AutoTokenizer
 
 class data_sampler_CFRL(object):
     def __init__(self, config=None, seed=None):
@@ -14,7 +14,7 @@ class data_sampler_CFRL(object):
         if self.config.model == 'bert':
             self.mask_token = '[MASK]' 
             model_path = self.config.bert_path
-            tokenizer_from_pretrained = BertTokenizer.from_pretrained
+            tokenizer_from_pretrained = AutoTokenizer.from_pretrained
         elif self.config.model == 'roberta':
             self.mask_token = '<mask>' 
             model_path = self.config.roberta_path
@@ -32,6 +32,8 @@ class data_sampler_CFRL(object):
             self.tokenizer =tokenizer_from_pretrained(model_path, \
             additional_special_tokens=[self.unused_token])
             self.config.prompt_token_ids = self.tokenizer.get_vocab()[self.unused_token]
+
+        self.tokenizer.padding_side = 'right'
 
         self.config.vocab_size = len(self.tokenizer)
         self.config.sep_token_ids = self.tokenizer.get_vocab()[self.tokenizer.sep_token]
@@ -199,9 +201,10 @@ class data_sampler_CFRL(object):
         elif self.config.pattern == 'softprompt':
             ids, mask = self._tokenize_softprompt(sample)   
         elif self.config.pattern == 'hybridprompt':
-            ids, mask, rd_ids, rd_mask = self._tokenize_hybridprompt(sample)
+            ids, mask, rd_ids, rd_mask, trigger_mask = self._tokenize_hybridprompt(sample)
             tokenized_sample['rd_ids'] = rd_ids
-            tokenized_sample['rd_mask'] = rd_mask                    
+            tokenized_sample['rd_mask'] = rd_mask
+            tokenized_sample['trigger_mask'] = trigger_mask
         elif self.config.pattern == 'marker':
             ids, mask = self._tokenize_marker(sample)
         elif self.config.pattern == 'cls':
@@ -262,13 +265,56 @@ class data_sampler_CFRL(object):
         h, t = sample['h'][0].split(' '),  sample['t'][0].split(' ')
         prompt = raw_tokens + [self.unused_token] * prompt_len + h + [self.unused_token] * prompt_len \
                + [self.mask_token] + [self.unused_token] * prompt_len + t + [self.unused_token] * prompt_len  
-        ids = self.tokenizer.encode(' '.join(prompt),
+        encoding = self.tokenizer.encode_plus(' '.join(prompt),
                                     padding='max_length',
                                     truncation=True,
-                                    max_length=self.max_length)        
+                                    max_length=self.max_length,
+                                    return_offsets_mapping=True,
+                                    add_special_tokens=True,
+                                    return_tensors='pt')
+        
+        input_ids = encoding['input_ids'][0]
+        tokens = self.tokenizer.convert_ids_to_tokens(input_ids)
+        offset_mappings = encoding['offset_mapping'][0]
+
+        trigger_mask = []
+        if sample['oie']:
+            trigger = sample['oie'][1]
+            # Find all occurrences of the trigger phrase in the text
+            trigger_positions = []
+            trigger_length = len(trigger)
+            start = 0
+            while True:
+                start = ' '.join(prompt).find(trigger, start)
+                if start == -1:
+                    break
+                end = start + trigger_length
+                trigger_positions.append((start, end))
+                start = end  # Move past the last found position
+            
+            # Convert offset mappings from tensor to list of tuples
+            offsets = [(start.item(), end.item()) for start, end in offset_mappings]
+            
+            # Define the overlap condition function
+            def overlaps(token_start, token_end, trigger_start, trigger_end):
+                return token_start < trigger_end and token_end > trigger_start
+            
+            # Find token indices for the trigger phrase
+            trigger_token_indices = []
+            for trigger_start, trigger_end in trigger_positions:
+                for idx, (token_start, token_end) in enumerate(offsets):
+                    if overlaps(token_start, token_end, trigger_start, trigger_end):
+                        trigger_token_indices.append(idx)
+            
+            # Remove duplicates and sort
+            trigger_token_indices = sorted(list(set(trigger_token_indices)))
+
+            # Gen a mask which is 1 for the trigger tokens and 0 for the rest through input_ids
+            trigger_mask = [1 if i in trigger_token_indices else 0 for i in range(len(input_ids))]
+
         # mask
         mask = np.zeros(self.max_length, dtype=np.int32)
-        end_index = np.argwhere(np.array(ids) == self.sep_token_ids)[0][0]
+        end_index = np.argwhere(input_ids.numpy() == self.sep_token_ids)[0][0]
         mask[:end_index + 1] = 1 
 
         # tokenize rd
@@ -279,13 +325,13 @@ class data_sampler_CFRL(object):
                                         max_length=self.max_length)        
             # mask
             rd_mask = np.zeros(self.max_length, dtype=np.int32)
-            end_index = np.argwhere(np.array(ids) == self.sep_token_ids)[0][0]
+            end_index = np.argwhere(np.array(rd_ids) == self.sep_token_ids)[0][0]
             rd_mask[:end_index + 1] = 1
         else:
             rd_ids = []
             rd_mask = []
 
-        return ids, mask, rd_ids, rd_mask
+        return input_ids.numpy(), mask, rd_ids, rd_mask, trigger_mask
 
     def _tokenize_hardprompt(self, sample):
         '''
@@ -363,4 +409,6 @@ class data_sampler_CFRL(object):
         mask[:end_index + 1] = 1
 
         return ids, mask
+    
+    
 
