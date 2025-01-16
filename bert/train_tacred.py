@@ -22,6 +22,7 @@ from encoder import EncodingModel
 
 from transformers import BertTokenizer
 from losses import MutualInformationLoss, HardSoftMarginTripletLoss, HardMarginLoss
+from sklearn.metrics import f1_score
 
 class Manager(object):
     def __init__(self, config) -> None:
@@ -122,7 +123,7 @@ class Manager(object):
         
 
     def train_model(self, encoder, training_data, seen_des, is_memory=False):
-        data_loader = get_data_loader_BERT(self.config, training_data, shuffle=True)
+        data_loader = get_data_loader_BERT(self.config, training_data, shuffle=True, training=True if not is_memory else False)
         optimizer = optim.Adam(params=encoder.parameters(), lr=self.config.lr)
         encoder.train()
         epoch = self.config.epoch_mem if is_memory else self.config.epoch
@@ -139,6 +140,14 @@ class Manager(object):
                 batch_instance['ids'] = torch.tensor([seen_des[self.id2rel[label.item()]]['ids'] for label in labels]).to(self.config.device)
                 batch_instance['mask'] = torch.tensor([seen_des[self.id2rel[label.item()]]['mask'] for label in labels]).to(self.config.device)
 
+                # calculate loss factors per label
+                label_weights = torch.ones(len(labels)).to(self.config.device)
+                unique_labels, label_counts = torch.unique(labels, return_counts=True)
+                label_weights = 1.0 / label_counts[torch.searchsorted(unique_labels, labels)]
+                label_weights = label_weights / label_weights.sum() * len(labels)
+                label_weights = label_weights.to(self.config.device) # (b)
+
+
                 n = len(labels)
                 new_matrix_labels = np.zeros((n, n), dtype=float)
 
@@ -153,10 +162,9 @@ class Manager(object):
                 # labels tensor shape b*b
                 
                 
-                hidden, trigger_loss = encoder(instance) # b, dim
+                hidden = encoder(instance) # b, dim
                 loss1 = self.moment.contrastive_loss(hidden, labels, is_memory)
                 labels_des = encoder(batch_instance, is_des = True) # b, dim
-                rd = encoder(instance, is_rd=True) # b, dim
 
                 # compute hard margin contrastive loss
                 hard_margin_loss = HardMarginLoss()
@@ -168,33 +176,8 @@ class Manager(object):
                 loss3 = torch.stack(loss3).mean()
 
 
-                # compute hard margin constrastive loss for relation description: rd vs hidden
-                hard_margin_loss_1 = HardMarginLoss()
-                loss3_1 = []
-                for idx in range(len(labels)):
-                    rep_rd = rd[idx]
-                    label_for_loss = labels == labels[idx]
-                    loss3_1.append(hard_margin_loss_1(rep_rd, hidden, label_for_loss))
-                loss3_1 = torch.stack(loss3_1).mean()
-
-                # compute hard margin constrastive loss for relation description: rd vs labels_des
-                hard_margin_loss_2 = HardMarginLoss()
-                loss3_2 = []
-                for idx in range(len(labels)):
-                    rep_des = labels_des[idx]
-                    label_for_loss = labels == labels[idx]
-                    loss3_2.append(hard_margin_loss_2(rep_des, rd, label_for_loss))
-                loss3_2 = torch.stack(loss3_2).mean()
-
-
-                loss_retrieval = MutualInformationLoss()
+                loss_retrieval = MutualInformationLoss(weights=label_weights)
                 loss2 = loss_retrieval(hidden, labels_des, new_matrix_labels_tensor)
-
-                loss_retrieval_1 = MutualInformationLoss()
-                loss2_1 = loss_retrieval_1(hidden, rd, new_matrix_labels_tensor)
-
-                loss_retrieval_2 = MutualInformationLoss()
-                loss2_2 = loss_retrieval_2(rd, labels_des, new_matrix_labels_tensor)
 
 
                 # compute soft margin triplet loss
@@ -204,8 +187,9 @@ class Manager(object):
                 else:
                     loss4 = 0.0
 
-                # loss = 1*loss1 + 2*(0.5*loss2 + 0.1*loss2_1 + 0.4*loss2_2) + 0.5*(0.5*loss3 + 0.1*loss3_1 + 0.4*loss3_2) + 1*loss4 + 1*trigger_loss
-                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4 + 1*trigger_loss
+                # print(f"loss1: {loss1}, loss2: {loss2}, loss3: {loss3}, loss4: {loss4}")
+
+                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
             
                 
                 optimizer.zero_grad()
@@ -255,6 +239,33 @@ class Manager(object):
             sys.stdout.flush()        
         print('')
         return corrects / total
+
+    def f1(self, preds, labels):
+        unique_labels = set(preds + labels)
+        if self.config.na_id in unique_labels:
+            unique_labels.remove(self.config.na_id)
+        
+        unique_labels = list(unique_labels)
+
+        # Calculate F1 score for each class separately
+        f1_per_class = f1_score(preds, labels, average=None)
+
+        # Calculate micro-average F1 score
+        f1_micro = f1_score(preds, labels, average='micro', labels=unique_labels)
+
+        # Calculate macro-average F1 score
+        # f1_macro = f1_score(preds, labels, average='macro', labels=unique_labels)
+
+        # Calculate weighted-average F1 score
+        f1_weighted = f1_score(preds, labels, average='weighted', labels=unique_labels)
+
+        print("F1 score per class:", dict(zip(unique_labels, f1_per_class)))
+        print("Micro-average F1 score:", f1_micro)
+        # print("Macro-average F1 score:", f1_macro)
+        print("Weighted-average F1 score:", f1_weighted)
+
+        return f1_micro
+
     def eval_encoder_proto_des(self, encoder, seen_proto, seen_relid, test_data, rep_des):
         """
         Args:
@@ -270,9 +281,16 @@ class Manager(object):
         batch_size = 16
         test_loader = get_data_loader_BERT(self.config, test_data, False, False, batch_size)
 
+        preds = []
+        labels = []
         corrects = 0.0
+
+        preds1 = []
         corrects1 = 0.0
+
+        preds2 = []
         corrects2 = 0.0
+
         total = 0.0
         encoder.eval()
         for batch_num, (instance, label, _) in enumerate(test_loader):
@@ -295,6 +313,7 @@ class Manager(object):
             pred = []
             for i in range(cur_index.size()[0]):
                 pred.append(seen_relid[int(cur_index[i])])
+            preds.extend(pred)
             pred = torch.tensor(pred)
 
             correct = torch.eq(pred, label).sum().item()
@@ -307,6 +326,7 @@ class Manager(object):
             pred1 = []
             for i in range(cur_index1.size()[0]):
                 pred1.append(seen_relid[int(cur_index1[i])])
+            preds1.extend(pred1)
             pred1 = torch.tensor(pred1)
             correct1 = torch.eq(pred1, label).sum().item()
             acc1 = correct1/ batch_size
@@ -317,22 +337,24 @@ class Manager(object):
             pred2 = []
             for i in range(cur_index2.size()[0]):
                 pred2.append(seen_relid[int(cur_index2[i])])
+            preds2.extend(pred2)
             pred2 = torch.tensor(pred2)
             correct2 = torch.eq(pred2, label).sum().item()
             acc2 = correct2/ batch_size
             corrects2 += correct2
 
-            
+            labels.extend(label.cpu().tolist())
 
-            sys.stdout.write('[EVAL] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
-                             .format(batch_num, 100 * acc, 100 * (corrects / total)) + '\r')
-            sys.stdout.write('[EVAL DES] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
-                             .format(batch_num, 100 * acc1, 100 * (corrects1 / total)) + '\r')
-            sys.stdout.write('[EVAL RRF] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
-                             .format(batch_num, 100 * acc2, 100 * (corrects2 / total)) + '\r')
-            sys.stdout.flush()
+            # sys.stdout.write('[EVAL] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
+            #                  .format(batch_num, 100 * acc, 100 * (corrects / total)) + '\r')
+            # sys.stdout.write('[EVAL DES] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
+            #                  .format(batch_num, 100 * acc1, 100 * (corrects1 / total)) + '\r')
+            # sys.stdout.write('[EVAL RRF] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
+            #                  .format(batch_num, 100 * acc2, 100 * (corrects2 / total)) + '\r')
+            # sys.stdout.flush()
         print('')
-        return corrects / total, corrects1 / total, corrects2 / total
+        # return corrects / total, corrects1 / total, corrects2 / total
+        return self.f1(preds, labels), self.f1(preds1, labels), self.f1(preds2, labels)
 
     def _get_sample_text(self, data_path, index):
         sample = {}
@@ -407,6 +429,8 @@ class Manager(object):
                     seen_des[rel]['ids'] = ids
                     seen_des[rel]['mask'] = mask
 
+            print(f"seen_des: {seen_des.keys()}")
+
             # Initialization
             self.moment = Moment(self.config)
 
@@ -414,7 +438,6 @@ class Manager(object):
             training_data_initialize = []
             for rel in current_relations:
                 training_data_initialize += training_data[rel]
-            
             self.moment.init_moment(encoder, training_data_initialize, is_memory=False)
             self.train_model(encoder, training_data_initialize, seen_des)
 
@@ -466,9 +489,12 @@ class Manager(object):
             # Eval current task and history task
             test_data_initialize_cur, test_data_initialize_seen = [], []
             for rel in current_relations:
-                test_data_initialize_cur += test_data[rel]
+                if rel != self.id2rel[self.config.na_id]:
+                    test_data_initialize_cur += test_data[rel]
+                
             for rel in seen_relations:
-                test_data_initialize_seen += historic_test_data[rel]
+                if rel != self.id2rel[self.config.na_id]:
+                    test_data_initialize_seen += historic_test_data[rel]
             
             ac1,ac1_des, ac1_rrf = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur,rep_des)
             ac2,ac2_des, ac2_rrf = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen,rep_des)
@@ -523,9 +549,10 @@ if __name__ == '__main__':
     print('#############params############')
 
     if config.task_name == 'FewRel':
+        config.na_id = 80
         config.rel_index = './data/CFRLFewRel/rel_index.npy'
         config.relation_name = './data/CFRLFewRel/relation_name.txt'
-        config.relation_description = './data/CFRLFewRel/relation_description_detail_1.txt'
+        config.relation_description = './data/CFRLFewRel/relation_description_detail_3.txt'
         if config.num_k == 5:
             config.rel_cluster_label = './data/CFRLFewRel/CFRLdata_10_100_10_5/rel_cluster_label_0.npy'
             config.training_data = './data/CFRLFewRel/CFRLdata_10_100_10_5/train_0.txt'
@@ -537,9 +564,10 @@ if __name__ == '__main__':
             config.valid_data = './data/CFRLFewRel/CFRLdata_10_100_10_10/valid_0.txt'
             config.test_data = './data/CFRLFewRel/CFRLdata_10_100_10_10/test_0.txt'
     else:
+        config.na_id = 41
         config.rel_index = './data/CFRLTacred/rel_index.npy'
         config.relation_name = './data/CFRLTacred/relation_name.txt'
-        config.relation_description = './data/CFRLTacred/relation_description_detail_1.txt'
+        config.relation_description = './data/CFRLTacred/relation_description_detail_3.txt'
         if config.num_k == 5:
             config.rel_cluster_label = './data/CFRLTacred/CFRLdata_6_100_5_5/rel_cluster_label_0.npy'
             config.training_data = './data/CFRLTacred/CFRLdata_6_100_5_5/train_0.txt'
@@ -549,7 +577,9 @@ if __name__ == '__main__':
             config.rel_cluster_label = './data/CFRLTacred/CFRLdata_6_100_5_10/rel_cluster_label_0.npy'
             config.training_data = './data/CFRLTacred/CFRLdata_6_100_5_10/train_0.txt'
             config.valid_data = './data/CFRLTacred/CFRLdata_6_100_5_10/valid_0.txt'
-            config.test_data = './data/CFRLTacred/CFRLdata_6_100_5_10/test_0.txt'        
+            config.test_data = './data/CFRLTacred/CFRLdata_6_100_5_10/test_0.txt'
+
+    config.majority_label = config.na_id
 
     # seed 
     random.seed(config.seed) 

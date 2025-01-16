@@ -28,11 +28,6 @@ class EncodingModel(nn.Module):
 
         self.info_nce_fc = nn.Linear(self.embedding_dim , self.embedding_dim).to(config.device)
 
-        self.trigger_fc = nn.Linear(self.embedding_dim, 1).to(config.device)
-        self.trigger_loss = nn.BCEWithLogitsLoss(reduction='none')
-
-        self.merge_fc = nn.Linear(2*self.embedding_dim, self.embedding_dim).to(config.device)
-
 
     def infoNCE_f(self, V, C):
         """
@@ -82,38 +77,17 @@ class EncodingModel(nn.Module):
         return input_embedding
 
 
-    def forward(self, inputs, is_des=False, is_rd: bool=False): # (b, max_length)
+    def forward(self, inputs, is_des=False): # (b, max_length)
         batch_size = inputs['ids'].size()[0]
         tensor_range = torch.arange(batch_size) # (b)     
         pattern = self.config.pattern
-        
-        trigger_mask = inputs.get('trigger_mask', None)
-        trigger_loss = None
-
-        if not is_rd:
-            if pattern == 'softprompt' or pattern == 'hybridprompt':
-                input_embedding = self.embedding_input(inputs['ids'])
-                outputs_words = self.encoder(inputs_embeds=input_embedding, attention_mask=inputs['mask'])[0] # (b, max_length, h)
-
-                if not is_des:
-                    trigger_logits = self.trigger_fc(outputs_words) # (b, max_length, 1)
-
-                    if trigger_mask is not None:
-                        trigger_loss = self.trigger_loss(trigger_logits, trigger_mask)
-                        trigger_loss = torch.masked_select(trigger_loss, inputs['mask'].bool()).mean()
-                    else:
-                        trigger_mask = (trigger_logits > 0).to(input['mask'].dtype)
-                        trigger_mask = trigger_mask * inputs['mask']
-
-                    trigger_embedding = torch.sum(outputs_words * trigger_mask, dim=1) / torch.sum(trigger_mask, dim=1) # (b, h)
-            else:
-                outputs_words = self.encoder(inputs['ids'], attention_mask=inputs['mask'])[0] # (b, max_length, h)
+        if pattern == 'softprompt' or pattern == 'hybridprompt':
+            input_embedding = self.embedding_input(inputs['ids'])
+            outputs_words = self.encoder(inputs_embeds=input_embedding, attention_mask=inputs['mask'])[0]
         else:
-            if pattern == 'softprompt' or pattern == 'hybridprompt':
-                input_embedding = self.embedding_input(inputs['rd_ids'])
-                outputs_words = self.encoder(inputs_embeds=input_embedding, attention_mask=inputs['rd_mask'])[0]
-            else:
-                outputs_words = self.encoder(inputs['rd_ids'], attention_mask=inputs['rd_mask'])[0] # (b, max_length, h)
+            outputs_words = self.encoder(inputs['ids'], attention_mask=inputs['mask'])[0] # (b, max_length, h)
+            # outputs_words_des = self.encoder(inputs['ids_des'], attention_mask=inputs['mask_des'])[0] # (b, max_length, h)
+
 
         # return [CLS] hidden
         if pattern == 'cls' or pattern == 'softprompt':
@@ -131,19 +105,11 @@ class EncodingModel(nn.Module):
                     mask = 0
                 
                 masks.append(mask)
-            if is_des or is_rd:
+            if is_des:
                 average_outputs_words = torch.mean(outputs_words, dim=1)
                 return average_outputs_words
             else:
                 mask_hidden = outputs_words[tensor_range, torch.tensor(masks)] # (b, h)
-                
-                concatenated_embedding = torch.cat((mask_hidden, trigger_embedding), dim=1) # (b, 2h)
-
-                mask_hidden = self.merge_fc(concatenated_embedding) # (b, h)
-
-                if inputs.get('trigger_mask', None) is not None:
-                    return mask_hidden, trigger_loss
-                
                 return mask_hidden
             # lm_head_output = self.lm_head(mask_hidden) # (b, max_length, vocab_size)
             # return mask_hidden , average_outputs_words
@@ -162,4 +128,3 @@ class EncodingModel(nn.Module):
 
             concerate_h_t = (h_state + t_state) / 2 # (b, h)
             return concerate_h_t
-

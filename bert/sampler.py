@@ -2,7 +2,8 @@ import pickle
 import os 
 import random
 import numpy as np
-from transformers import BertTokenizer, RobertaTokenizer, AutoTokenizer
+from transformers import BertTokenizer, RobertaTokenizer
+import json
 
 class data_sampler_CFRL(object):
     def __init__(self, config=None, seed=None):
@@ -14,7 +15,7 @@ class data_sampler_CFRL(object):
         if self.config.model == 'bert':
             self.mask_token = '[MASK]' 
             model_path = self.config.bert_path
-            tokenizer_from_pretrained = AutoTokenizer.from_pretrained
+            tokenizer_from_pretrained = BertTokenizer.from_pretrained
         elif self.config.model == 'roberta':
             self.mask_token = '<mask>' 
             model_path = self.config.roberta_path
@@ -33,8 +34,6 @@ class data_sampler_CFRL(object):
             additional_special_tokens=[self.unused_token])
             self.config.prompt_token_ids = self.tokenizer.get_vocab()[self.unused_token]
 
-        self.tokenizer.padding_side = 'right'
-
         self.config.vocab_size = len(self.tokenizer)
         self.config.sep_token_ids = self.tokenizer.get_vocab()[self.tokenizer.sep_token]
         self.config.mask_token_ids = self.tokenizer.get_vocab()[self.tokenizer.mask_token]
@@ -50,6 +49,13 @@ class data_sampler_CFRL(object):
         self.training_data = self._read_data(self.config.training_data, self._temp_datapath('train'))
         self.valid_data = self._read_data(self.config.valid_data, self._temp_datapath('valid'))
         self.test_data = self._read_data(self.config.test_data, self._temp_datapath('test'))
+
+        # read na data
+        self.training_na_data = self._read_na_data(self.config.training_data, self._temp_datapath('train'))
+        self.valid_na_data = self._read_na_data(self.config.valid_data, self._temp_datapath('valid'))
+        self.test_na_data = self._read_na_data(self.config.test_data, self._temp_datapath('test'))
+        self.na_id = self.config.na_id
+        self.na_rel = self.id2rel[self.na_id]
 
         # read relation order
         rel_index = np.load(self.config.rel_index)
@@ -104,16 +110,41 @@ class data_sampler_CFRL(object):
         cur_valid_data = {}
         cur_test_data = {}
 
-        for index in indexs:
-            current_relations.append(self.id2rel[index])
-            self.seen_relations.append(self.id2rel[index])
+        cur_na_training_data = []
+        cur_na_valid_data = []
+        cur_na_test_data = []
 
-            cur_training_data[self.id2rel[index]] = self.training_data[index]
-            cur_valid_data[self.id2rel[index]] = self.valid_data[index]
-            cur_test_data[self.id2rel[index]] = self.test_data[index]
-            self.history_test_data[self.id2rel[index]] = self.test_data[index]
+
+        for index in indexs:
+            rel = self.id2rel[index]
+            current_relations.append(rel)
+            self.seen_relations.append(rel)
+
+            cur_training_data[rel] = self.training_data[index]
+            cur_na_training_data.extend(self.training_na_data[index])
+
+            cur_valid_data[rel] = self.valid_data[index]
+            # cur_na_valid_data.extend(self.valid_na_data[index])
+
+            cur_test_data[rel] = self.test_data[index]
+            # cur_na_test_data.extend(self.test_na_data[index])
+
+            self.history_test_data[rel] = self.test_data[index]
             # fix_here 
-            self.seen_descriptions[self.id2rel[index]] = self.id2des[index]
+            self.seen_descriptions[rel] = self.id2des[index]
+
+        if self.na_rel not in self.seen_relations:
+            self.seen_relations.append(self.na_rel)
+            # self.history_test_data[self.na_rel] = cur_na_test_data
+            self.seen_descriptions[self.na_rel] = self.id2des[self.na_id]
+        # else:
+        #     self.history_test_data[self.na_rel] += cur_na_test_data
+
+        current_relations.append(self.na_rel)
+        cur_training_data[self.na_rel] = cur_na_training_data
+        # cur_valid_data[self.na_rel] = cur_na_valid_data
+        # cur_test_data[self.na_rel] = cur_na_test_data
+        
         return cur_training_data, cur_valid_data, cur_test_data, current_relations,\
             self.history_test_data, self.seen_relations, self.seen_descriptions
 
@@ -162,8 +193,6 @@ class data_sampler_CFRL(object):
                     sample = {}
                     items = line.strip().split('\t')
                     if (len(items[0]) > 0):
-                        if "train" in file and len(items) != 11:
-                            print(items)
                         sample['relation'] = int(items[0]) - 1
                         sample['index'] = i
                         if items[1] != 'noNegativeAnswer':
@@ -178,8 +207,6 @@ class data_sampler_CFRL(object):
                             tailid = items[8]
                             sample['h'] = [headent, headid, headidx]
                             sample['t'] = [tailent, tailid, tailidx]
-                            sample['oie'] = items[9] if len(items) >= 10 else None
-                            sample['relation_definition'] = items[10] if len(items) >= 11 else None
                             samples.append(sample)
 
             read_data = [[] for i in range(self.config.num_of_relation)]
@@ -191,20 +218,58 @@ class data_sampler_CFRL(object):
                 print(save_data_path)
             return read_data
 
+    def _read_na_data(self, file: str, save_data_path):
+        file = file.replace('train_0.txt', 'na_train.json').replace('valid_0.txt', 'na_valid.json').replace('test_0.txt', 'na_test.json')
+        save_data_path = save_data_path.replace('train.pkl', 'na_train.pkl').replace('valid.pkl', 'na_valid.pkl').replace('test.pkl', 'na_test.pkl')
+        if os.path.isfile(save_data_path):
+            with open(save_data_path, 'rb') as f:
+                datas = pickle.load(f)
+                print(save_data_path)
+            return datas
+        else:
+            with open(file) as f:
+                na_data = json.load(f)
+
+            processed_na_data = [[] for i in range(self.config.num_of_relation)]
+
+            for key in na_data.keys():
+                # processed_na_data[int(key)] = []
+                sample = {}
+                for line in na_data[key]:
+                    items = line.strip().split('\t')
+                    if (len(items[0]) > 0):
+                        sample['relation'] = int(items[0]) - 1
+                        # sample['index'] = i
+                        if items[1] != 'noNegativeAnswer':
+                            candidate_ixs = [int(ix) for ix in items[1].split()]
+                            sample['tokens'] = items[2].split()
+                            sample['description'] = self.id2des[sample['relation']]
+                            headent = items[3]
+                            headidx = [[int(ix) for ix in items[4].split()]]
+                            tailent = items[5]
+                            tailidx = [[int(ix) for ix in items[6].split()]]
+                            headid = items[7]
+                            tailid = items[8]
+                            sample['h'] = [headent, headid, headidx]
+                            sample['t'] = [tailent, tailid, tailidx]
+
+                            processed_na_data[int(key)].append(self.tokenize(sample))
+
+            with open(save_data_path, 'wb') as f:
+                pickle.dump(processed_na_data, f)
+                print(save_data_path)
+            return processed_na_data
+
     def tokenize(self, sample):
         tokenized_sample = {}
         tokenized_sample['relation'] = sample['relation']
-        tokenized_sample['index'] = sample['index']
-        tokenized_sample['oie'] = sample['oie']
+        # tokenized_sample['index'] = sample['index']
         if self.config.pattern == 'hardprompt':
             ids, mask = self._tokenize_hardprompt(sample)
         elif self.config.pattern == 'softprompt':
             ids, mask = self._tokenize_softprompt(sample)   
         elif self.config.pattern == 'hybridprompt':
-            ids, mask, rd_ids, rd_mask, trigger_mask = self._tokenize_hybridprompt(sample)
-            tokenized_sample['rd_ids'] = rd_ids
-            tokenized_sample['rd_mask'] = rd_mask
-            tokenized_sample['trigger_mask'] = trigger_mask
+            ids, mask = self._tokenize_hybridprompt(sample)                     
         elif self.config.pattern == 'marker':
             ids, mask = self._tokenize_marker(sample)
         elif self.config.pattern == 'cls':
@@ -265,73 +330,16 @@ class data_sampler_CFRL(object):
         h, t = sample['h'][0].split(' '),  sample['t'][0].split(' ')
         prompt = raw_tokens + [self.unused_token] * prompt_len + h + [self.unused_token] * prompt_len \
                + [self.mask_token] + [self.unused_token] * prompt_len + t + [self.unused_token] * prompt_len  
-        encoding = self.tokenizer.encode_plus(' '.join(prompt),
+        ids = self.tokenizer.encode(' '.join(prompt),
                                     padding='max_length',
                                     truncation=True,
-                                    max_length=self.max_length,
-                                    return_offsets_mapping=True,
-                                    add_special_tokens=True,
-                                    return_tensors='pt')
-        
-        input_ids = encoding['input_ids'][0]
-        tokens = self.tokenizer.convert_ids_to_tokens(input_ids)
-        offset_mappings = encoding['offset_mapping'][0]
-
-        trigger_mask = []
-        if sample['oie']:
-            trigger = sample['oie'][1]
-            # Find all occurrences of the trigger phrase in the text
-            trigger_positions = []
-            trigger_length = len(trigger)
-            start = 0
-            while True:
-                start = ' '.join(prompt).find(trigger, start)
-                if start == -1:
-                    break
-                end = start + trigger_length
-                trigger_positions.append((start, end))
-                start = end  # Move past the last found position
-            
-            # Convert offset mappings from tensor to list of tuples
-            offsets = [(start.item(), end.item()) for start, end in offset_mappings]
-            
-            # Define the overlap condition function
-            def overlaps(token_start, token_end, trigger_start, trigger_end):
-                return token_start < trigger_end and token_end > trigger_start
-            
-            # Find token indices for the trigger phrase
-            trigger_token_indices = []
-            for trigger_start, trigger_end in trigger_positions:
-                for idx, (token_start, token_end) in enumerate(offsets):
-                    if overlaps(token_start, token_end, trigger_start, trigger_end):
-                        trigger_token_indices.append(idx)
-            
-            # Remove duplicates and sort
-            trigger_token_indices = sorted(list(set(trigger_token_indices)))
-
-            # Gen a mask which is 1 for the trigger tokens and 0 for the rest through input_ids
-            trigger_mask = [1 if i in trigger_token_indices else 0 for i in range(len(input_ids))]
-
+                                    max_length=self.max_length)        
         # mask
         mask = np.zeros(self.max_length, dtype=np.int32)
-        end_index = np.argwhere(input_ids.numpy() == self.sep_token_ids)[0][0]
+        end_index = np.argwhere(np.array(ids) == self.sep_token_ids)[0][0]
         mask[:end_index + 1] = 1 
 
-        # tokenize rd
-        if sample['relation_definition']:
-            rd_ids = self.tokenizer.encode(sample['relation_definition'],
-                                        padding='max_length',
-                                        truncation=True,
-                                        max_length=self.max_length)        
-            # mask
-            rd_mask = np.zeros(self.max_length, dtype=np.int32)
-            end_index = np.argwhere(np.array(rd_ids) == self.sep_token_ids)[0][0]
-            rd_mask[:end_index + 1] = 1
-        else:
-            rd_ids = []
-            rd_mask = []
-
-        return input_ids.numpy(), mask, rd_ids, rd_mask, trigger_mask
+        return ids, mask        
 
     def _tokenize_hardprompt(self, sample):
         '''
@@ -409,6 +417,3 @@ class data_sampler_CFRL(object):
         mask[:end_index + 1] = 1
 
         return ids, mask
-    
-    
-
