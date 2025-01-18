@@ -304,7 +304,7 @@ class Manager(object):
         Returns:
 
         """
-        batch_size = 16
+        batch_size = 48
         test_loader = get_data_loader_BERT(self.config, test_data, False, False, batch_size)
 
         preds = []
