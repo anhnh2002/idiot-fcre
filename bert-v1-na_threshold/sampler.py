@@ -123,10 +123,10 @@ class data_sampler_CFRL(object):
             cur_na_training_data.extend(self.training_na_data[index])
 
             cur_valid_data[rel] = self.valid_data[index]
-            # cur_na_valid_data.extend(self.valid_na_data[index])
+            cur_na_valid_data.extend(self.valid_na_data[index])
 
             cur_test_data[rel] = self.test_data[index]
-            # cur_na_test_data.extend(self.test_na_data[index])
+            cur_na_test_data.extend(self.test_na_data[index])
 
             self.history_test_data[rel] = self.test_data[index]
             # fix_here 
