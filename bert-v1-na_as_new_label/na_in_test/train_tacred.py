@@ -515,12 +515,12 @@ class Manager(object):
             # Eval current task and history task
             test_data_initialize_cur, test_data_initialize_seen = [], []
             for rel in current_relations:
-                if rel != self.id2rel[self.config.na_id]:
-                    test_data_initialize_cur += test_data[rel]
+                # if rel != self.id2rel[self.config.na_id]:
+                test_data_initialize_cur += test_data[rel]
                 
             for rel in seen_relations:
-                if rel != self.id2rel[self.config.na_id]:
-                    test_data_initialize_seen += historic_test_data[rel]
+                # if rel != self.id2rel[self.config.na_id]:
+                test_data_initialize_seen += historic_test_data[rel]
             
             ac1,ac1_des, ac1_rrf = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur,rep_des)
             ac2,ac2_des, ac2_rrf = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen,rep_des)
