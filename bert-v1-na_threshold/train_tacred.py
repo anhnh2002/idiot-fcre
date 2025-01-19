@@ -292,7 +292,7 @@ class Manager(object):
 
         return f1_micro
 
-    def eval_encoder_proto_des(self, encoder, seen_proto, seen_relid, test_data, rep_des):
+    def eval_encoder_proto_des(self, encoder, seen_proto, seen_relid, test_data, rep_des, threshold, threshold1, threshold2):
         """
         Args:
             encoder: Encoder
@@ -304,7 +304,10 @@ class Manager(object):
         Returns:
 
         """
-        batch_size = 16
+
+        seen_relid.append(self.config.na_id)
+
+        batch_size = 48
         test_loader = get_data_loader_BERT(self.config, test_data, False, False, batch_size)
 
         preds = []
@@ -335,52 +338,166 @@ class Manager(object):
             rrf_logits_des = 0.6 / (rrf_k + logits_des_ranks)
             logits_rrf = rrf_logits + rrf_logits_des
            
-            cur_index = torch.argmax(logits, dim=1)  # (B)
+            cur_values, cur_index = torch.max(logits, dim=1)  # (B)
             pred = []
             for i in range(cur_index.size()[0]):
-                pred.append(seen_relid[int(cur_index[i])])
+                _pred_i = seen_relid[int(cur_index[i])] if cur_values[i] > threshold else self.config.na_id
+                pred.append(_pred_i)
             preds.extend(pred)
             pred = torch.tensor(pred)
-
-            correct = torch.eq(pred, label).sum().item()
-            acc = correct / batch_size
-            corrects += correct
-            total += batch_size
 
             # by logits_des
             cur_index1 = torch.argmax(logits_des,dim=1)
             pred1 = []
             for i in range(cur_index1.size()[0]):
-                pred1.append(seen_relid[int(cur_index1[i])])
+                _pred1_i = seen_relid[int(cur_index1[i])] if cur_index1[i] > threshold1 else self.config.na_id
+                pred1.append(_pred1_i)
             preds1.extend(pred1)
             pred1 = torch.tensor(pred1)
-            correct1 = torch.eq(pred1, label).sum().item()
-            acc1 = correct1/ batch_size
-            corrects1 += correct1
 
             # by rrf
             cur_index2 = torch.argmax(logits_rrf,dim=1)
             pred2 = []
             for i in range(cur_index2.size()[0]):
-                pred2.append(seen_relid[int(cur_index2[i])])
+                _pred2_i = seen_relid[int(cur_index2[i])] if cur_index2[i] > threshold2 else self.config.na_id
+                pred2.append(_pred2_i)
             preds2.extend(pred2)
             pred2 = torch.tensor(pred2)
-            correct2 = torch.eq(pred2, label).sum().item()
-            acc2 = correct2/ batch_size
-            corrects2 += correct2
 
             labels.extend(label.cpu().tolist())
 
-            # sys.stdout.write('[EVAL] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
-            #                  .format(batch_num, 100 * acc, 100 * (corrects / total)) + '\r')
-            # sys.stdout.write('[EVAL DES] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
-            #                  .format(batch_num, 100 * acc1, 100 * (corrects1 / total)) + '\r')
-            # sys.stdout.write('[EVAL RRF] batch: {0:4} | acc: {1:3.2f}%,  total acc: {2:3.2f}%   ' \
-            #                  .format(batch_num, 100 * acc2, 100 * (corrects2 / total)) + '\r')
-            # sys.stdout.flush()
         print('')
-        # return corrects / total, corrects1 / total, corrects2 / total
+
         return self.f1(preds, labels), self.f1(preds1, labels), self.f1(preds2, labels)
+
+    def get_threshold(self, encoder, seen_proto, seen_relid, training_data, na_training_data, rep_des):
+        batch_size = 48
+        train_loader = get_data_loader_BERT(self.config, training_data, False, False, batch_size)
+        na_train_loader = get_data_loader_BERT(self.config, na_training_data, False, False, batch_size)
+
+        train_distances = []
+        train_distances1 = []
+        train_distances2 = []
+
+        train_distances_na = []
+        train_distances1_na = []
+        train_distances2_na = []
+
+        encoder.eval()
+        for batch_num, (instance, label, _) in enumerate(train_loader):
+            for k in instance.keys():
+                instance[k] = instance[k].to(self.config.device)
+            hidden = encoder(instance)
+            fea = hidden.cpu().data
+            logits = -self._edist(fea, seen_proto)  # (B, N) ;N is the number of seen relations
+            logits_des = self._cosine_similarity(fea, rep_des)  # (B, N)
+            # combine using rrf
+            rrf_k = 60
+            
+            logits_ranks = torch.argsort(torch.argsort(-logits, dim=1), dim=1) + 1
+            logits_des_ranks = torch.argsort(torch.argsort(-logits_des, dim=1), dim=1) + 1
+            rrf_logits = 0.4 / (rrf_k + logits_ranks)
+            rrf_logits_des = 0.6 / (rrf_k + logits_des_ranks)
+            logits_rrf = rrf_logits + rrf_logits_des
+
+            cur_values, cur_indexs = torch.max(logits, dim=1) # (B)
+            cur_values1, cur_indexs1 = torch.max(logits_des, dim=1)
+            cur_values2, cur_indexs2 = torch.max(logits_rrf, dim=1)
+
+            train_distances.extend(cur_values.cpu().tolist())
+            train_distances1.extend(cur_values1.cpu().tolist())
+            train_distances2.extend(cur_values2.cpu().tolist())
+        
+        for batch_num, (instance, label, _) in enumerate(na_train_loader):
+            for k in instance.keys():
+                instance[k] = instance[k].to(self.config.device)
+            hidden = encoder(instance)
+            fea = hidden.cpu().data
+            logits = -self._edist(fea, seen_proto)
+            logits_des = self._cosine_similarity(fea, rep_des)
+            # combine using rrf
+            rrf_k = 60
+
+            logits_ranks = torch.argsort(torch.argsort(-logits, dim=1), dim=1) + 1
+            logits_des_ranks = torch.argsort(torch.argsort(-logits_des, dim=1), dim=1) + 1
+            rrf_logits = 0.4 / (rrf_k + logits_ranks)
+            rrf_logits_des = 0.6 / (rrf_k + logits_des_ranks)
+            logits_rrf = rrf_logits + rrf_logits_des
+            
+            cur_values, cur_indexs = torch.min(logits, dim=1)  # (B)
+            cur_values1, cur_indexs1 = torch.min(logits_des, dim=1)
+            cur_values2, cur_indexs2 = torch.min(logits_rrf, dim=1)
+
+            train_distances_na.extend(cur_values.cpu().tolist())
+            train_distances1_na.extend(cur_values1.cpu().tolist())
+            train_distances2_na.extend(cur_values2.cpu().tolist())
+        
+        def otsu_threshold(l1: list, l2: list):
+
+            l1 = sorted(l1)
+            l2 = sorted(l2)
+
+            # Combine both lists
+            combined = np.array(l1 + l2)
+            
+            # Get range of possible thresholds
+            min_val = np.min(combined)
+            max_val = np.max(combined)
+            thresholds = np.linspace(min_val, max_val, 100)
+            
+            max_variance = 0
+            best_threshold = min_val
+            
+            for t in thresholds:
+                # Split data into two classes
+                c1 = combined[combined < t]
+                c2 = combined[combined >= t]
+                
+                if len(c1) == 0 or len(c2) == 0:
+                    continue
+                    
+                # Calculate weights
+                w1 = len(c1) / len(combined)
+                w2 = len(c2) / len(combined)
+                
+                # Calculate means
+                m1 = np.mean(c1)
+                m2 = np.mean(c2)
+                
+                # Calculate between-class variance
+                variance = w1 * w2 * (m1 - m2) ** 2
+                
+                if variance > max_variance:
+                    max_variance = variance
+                    best_threshold = t
+                    
+            return best_threshold
+
+
+        # threshold = otsu_threshold(train_distances_na, train_distances)
+        # threshold1 = otsu_threshold(train_distances1_na, train_distances1)
+        # threshold2 = otsu_threshold(train_distances2_na, train_distances2)
+
+        threshold = min(train_distances)
+        threshold1 = min(train_distances1)
+        threshold2 = min(train_distances2)
+
+        def evaluate_threshold(l1, l2, threshold):
+            correct_l1 = sum(1 for x in l1 if x < threshold)
+            correct_l2 = sum(1 for x in l2 if x >= threshold)
+            
+            accuracy = (correct_l1 + correct_l2) / (len(l1) + len(l2))
+            return accuracy
+
+        accuracy = evaluate_threshold(train_distances_na, train_distances, threshold)
+        accuracy1 = evaluate_threshold(train_distances1_na, train_distances1, threshold1)
+        accuracy2 = evaluate_threshold(train_distances2_na, train_distances2, threshold2)
+
+        print(f"Threshold: {threshold}, Accuracy: {accuracy}")
+        print(f"Threshold1: {threshold1}, Accuracy1: {accuracy1}")
+        print(f"Threshold2: {threshold2}, Accuracy2: {accuracy2}")
+
+        return threshold, threshold1, threshold2
 
     def _get_sample_text(self, data_path, index):
         sample = {}
@@ -452,18 +569,19 @@ class Manager(object):
             historic_test_data, seen_relations, seen_descriptions) in enumerate(sampler):
 
             for rel in current_relations:
-                ids = self.tokenizer.encode(seen_descriptions[rel][0],
-                                    padding='max_length',
-                                    truncation=True,
-                                    max_length=self.config.max_length)     
-                # mask
-                mask = np.zeros(self.config.max_length, dtype=np.int32)
-                end_index = np.argwhere(np.array(ids) == self.tokenizer.get_vocab()[self.tokenizer.sep_token])[0][0]
-                mask[:end_index + 1] = 1 
-                if rel not in seen_des:
-                    seen_des[rel] = {}
-                    seen_des[rel]['ids'] = ids
-                    seen_des[rel]['mask'] = mask
+                if rel != sampler.na_rel:
+                    ids = self.tokenizer.encode(seen_descriptions[rel][0],
+                                        padding='max_length',
+                                        truncation=True,
+                                        max_length=self.config.max_length)     
+                    # mask
+                    mask = np.zeros(self.config.max_length, dtype=np.int32)
+                    end_index = np.argwhere(np.array(ids) == self.tokenizer.get_vocab()[self.tokenizer.sep_token])[0][0]
+                    mask[:end_index + 1] = 1 
+                    if rel not in seen_des:
+                        seen_des[rel] = {}
+                        seen_des[rel]['ids'] = ids
+                        seen_des[rel]['mask'] = mask
 
             print(f"seen_des: {seen_des.keys()}")
 
@@ -473,19 +591,22 @@ class Manager(object):
             # Train current task
             training_data_initialize = []
             for rel in current_relations:
-                training_data_initialize += training_data[rel]
+                if rel != sampler.na_rel:
+                    training_data_initialize += training_data[rel]
             self.moment.init_moment(encoder, training_data_initialize, is_memory=False)
             self.train_model(encoder, training_data_initialize, seen_des)
 
             # Select memory samples
             for rel in current_relations:
-                memory_samples[rel], _ = self.select_memory(encoder, training_data[rel])
+                if rel != sampler.na_rel:
+                    memory_samples[rel], _ = self.select_memory(encoder, training_data[rel])
                     
             # Train memory
             if step > 0:
                 memory_data_initialize = []
                 for rel in seen_relations:
-                    memory_data_initialize += memory_samples[rel]
+                    if rel != sampler.na_rel:
+                        memory_data_initialize += memory_samples[rel]
                 memory_data_initialize += data_generation
                 self.moment.init_moment(encoder, memory_data_initialize, is_memory=True) 
                 self.train_model(encoder, memory_data_initialize, seen_des, is_memory=True)
@@ -493,20 +614,23 @@ class Manager(object):
             # Update proto
             seen_proto = []  
             for rel in seen_relations:
-                proto, _ = self.get_memory_proto(encoder, memory_samples[rel])
-                seen_proto.append(proto)
+                if rel != sampler.na_rel:
+                    proto, _ = self.get_memory_proto(encoder, memory_samples[rel])
+                    seen_proto.append(proto)
             seen_proto = torch.stack(seen_proto, dim=0)
 
             # get seen relation id
             seen_relid = []
             for rel in seen_relations:
-                seen_relid.append(self.rel2id[rel])
+                if rel != sampler.na_rel:
+                    seen_relid.append(self.rel2id[rel])
 
 
             # get representation of seen description
             seen_des_by_id = {}
             for rel in seen_relations:
-                seen_des_by_id[self.rel2id[rel]] = seen_des[rel]
+                if rel != sampler.na_rel:
+                    seen_des_by_id[self.rel2id[rel]] = seen_des[rel]
             list_seen_des = []
             for i in range(len(seen_proto)):
                 list_seen_des.append(seen_des_by_id[seen_relid[i]])
@@ -522,6 +646,9 @@ class Manager(object):
                 rep_des.append(hidden)
             rep_des = torch.cat(rep_des, dim=0)
 
+            # get threshold
+            threshold, threshold1, threshold2 = self.get_threshold(encoder, seen_proto, seen_relid, training_data_initialize, training_data[sampler.na_rel], rep_des)
+
             # Eval current task and history task wo na
             test_data_initialize_cur_wo_na, test_data_initialize_seen_wo_na = [], []
             for rel in current_relations:
@@ -532,8 +659,8 @@ class Manager(object):
                 if rel != self.id2rel[self.config.na_id]:
                     test_data_initialize_seen_wo_na += historic_test_data[rel]
             
-            ac1_wo_na, ac1_des_wo_na, ac1_rrf_wo_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur_wo_na,rep_des)
-            ac2_wo_na, ac2_des_wo_na, ac2_rrf_wo_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen_wo_na,rep_des)
+            ac1_wo_na, ac1_des_wo_na, ac1_rrf_wo_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur_wo_na,rep_des, threshold, threshold1, threshold2)
+            ac2_wo_na, ac2_des_wo_na, ac2_rrf_wo_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen_wo_na,rep_des, threshold, threshold1, threshold2)
 
             # Eval current task and history task w na
             test_data_initialize_cur_w_na, test_data_initialize_seen_w_na = [], []
@@ -543,8 +670,8 @@ class Manager(object):
             for rel in seen_relations:
                 test_data_initialize_seen_w_na += historic_test_data[rel]
             
-            ac1_w_na, ac1_des_w_na, ac1_rrf_w_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur_w_na,rep_des)
-            ac2_w_na, ac2_des_w_na, ac2_rrf_w_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen_w_na,rep_des)
+            ac1_w_na, ac1_des_w_na, ac1_rrf_w_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur_w_na,rep_des, threshold, threshold1, threshold2)
+            ac2_w_na, ac2_des_w_na, ac2_rrf_w_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen_w_na,rep_des, threshold, threshold1, threshold2)
             
             # wo na
             cur_acc_num_wo_na.append(ac1_wo_na)

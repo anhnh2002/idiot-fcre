@@ -1,0 +1,342 @@
+#############params############
+cuda
+Task=Tacred, 5-shot
+Encoding model: bert
+pattern=hybridprompt
+mem=1, margin=0.3, gen=0, gen_num=2
+#############params############
+--------Round  0
+seed:  100
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/train.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/valid.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/test.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/na_train.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/na_valid.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/na_test.pkl
+Task_order: [7 3 0 5 4 1 6 2]
+prepared data!
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters'])
+CurrentTrain: epoch  0, batch     0 | loss: 106.4440688CurrentTrain: epoch  0, batch     1 | loss: 100.4020325CurrentTrain: epoch  0, batch     2 | loss: 96.0745512CurrentTrain: epoch  0, batch     3 | loss: 99.4737404CurrentTrain: epoch  0, batch     4 | loss: 98.3787434CurrentTrain: epoch  0, batch     5 | loss: 98.7559268CurrentTrain: epoch  0, batch     6 | loss: 99.5173688CurrentTrain: epoch  0, batch     7 | loss: 95.8287697CurrentTrain: epoch  0, batch     8 | loss: 97.4966011CurrentTrain: epoch  0, batch     9 | loss: 99.0552059CurrentTrain: epoch  0, batch    10 | loss: 92.5762843CurrentTrain: epoch  0, batch    11 | loss: 95.0426788CurrentTrain: epoch  0, batch    12 | loss: 39.6742560CurrentTrain: epoch  1, batch     0 | loss: 91.2684433CurrentTrain: epoch  1, batch     1 | loss: 88.4206509CurrentTrain: epoch  1, batch     2 | loss: 88.1125398CurrentTrain: epoch  1, batch     3 | loss: 86.7963293CurrentTrain: epoch  1, batch     4 | loss: 86.2692331CurrentTrain: epoch  1, batch     5 | loss: 90.1526085CurrentTrain: epoch  1, batch     6 | loss: 88.9436558CurrentTrain: epoch  1, batch     7 | loss: 83.4288551CurrentTrain: epoch  1, batch     8 | loss: 79.8956835CurrentTrain: epoch  1, batch     9 | loss: 82.7141801CurrentTrain: epoch  1, batch    10 | loss: 85.3316871CurrentTrain: epoch  1, batch    11 | loss: 79.2489036CurrentTrain: epoch  1, batch    12 | loss: 33.2662285CurrentTrain: epoch  2, batch     0 | loss: 79.4960360CurrentTrain: epoch  2, batch     1 | loss: 77.5020469CurrentTrain: epoch  2, batch     2 | loss: 79.2302914CurrentTrain: epoch  2, batch     3 | loss: 79.0284148CurrentTrain: epoch  2, batch     4 | loss: 74.4111718CurrentTrain: epoch  2, batch     5 | loss: 74.6314309CurrentTrain: epoch  2, batch     6 | loss: 84.3355647CurrentTrain: epoch  2, batch     7 | loss: 70.3016205CurrentTrain: epoch  2, batch     8 | loss: 73.9310039CurrentTrain: epoch  2, batch     9 | loss: 69.8262383CurrentTrain: epoch  2, batch    10 | loss: 74.7725573CurrentTrain: epoch  2, batch    11 | loss: 71.4412474CurrentTrain: epoch  2, batch    12 | loss: 29.0649182CurrentTrain: epoch  3, batch     0 | loss: 73.8711164CurrentTrain: epoch  3, batch     1 | loss: 70.6940610CurrentTrain: epoch  3, batch     2 | loss: 69.7954922CurrentTrain: epoch  3, batch     3 | loss: 70.4356453CurrentTrain: epoch  3, batch     4 | loss: 67.3224471CurrentTrain: epoch  3, batch     5 | loss: 70.2965167CurrentTrain: epoch  3, batch     6 | loss: 68.0297016CurrentTrain: epoch  3, batch     7 | loss: 68.3005215CurrentTrain: epoch  3, batch     8 | loss: 73.1205534CurrentTrain: epoch  3, batch     9 | loss: 71.9076678CurrentTrain: epoch  3, batch    10 | loss: 67.5770797CurrentTrain: epoch  3, batch    11 | loss: 71.2152033CurrentTrain: epoch  3, batch    12 | loss: 29.0115276CurrentTrain: epoch  4, batch     0 | loss: 72.5759779CurrentTrain: epoch  4, batch     1 | loss: 76.2804398CurrentTrain: epoch  4, batch     2 | loss: 71.5741963CurrentTrain: epoch  4, batch     3 | loss: 68.2399001CurrentTrain: epoch  4, batch     4 | loss: 74.7369910CurrentTrain: epoch  4, batch     5 | loss: 68.3817738CurrentTrain: epoch  4, batch     6 | loss: 67.0904025CurrentTrain: epoch  4, batch     7 | loss: 67.8586653CurrentTrain: epoch  4, batch     8 | loss: 68.6005376CurrentTrain: epoch  4, batch     9 | loss: 66.3008207CurrentTrain: epoch  4, batch    10 | loss: 63.1704454CurrentTrain: epoch  4, batch    11 | loss: 63.8974663CurrentTrain: epoch  4, batch    12 | loss: 25.9491033CurrentTrain: epoch  5, batch     0 | loss: 62.2963020CurrentTrain: epoch  5, batch     1 | loss: 66.6294895CurrentTrain: epoch  5, batch     2 | loss: 63.3979314CurrentTrain: epoch  5, batch     3 | loss: 74.1794034CurrentTrain: epoch  5, batch     4 | loss: 65.5334007CurrentTrain: epoch  5, batch     5 | loss: 64.8587086CurrentTrain: epoch  5, batch     6 | loss: 68.4164733CurrentTrain: epoch  5, batch     7 | loss: 64.1535087CurrentTrain: epoch  5, batch     8 | loss: 64.6317788CurrentTrain: epoch  5, batch     9 | loss: 69.8555152CurrentTrain: epoch  5, batch    10 | loss: 63.2648039CurrentTrain: epoch  5, batch    11 | loss: 77.0186001CurrentTrain: epoch  5, batch    12 | loss: 24.7866045CurrentTrain: epoch  6, batch     0 | loss: 65.7723965CurrentTrain: epoch  6, batch     1 | loss: 64.8160504CurrentTrain: epoch  6, batch     2 | loss: 68.1721162CurrentTrain: epoch  6, batch     3 | loss: 70.4406844CurrentTrain: epoch  6, batch     4 | loss: 64.5052491CurrentTrain: epoch  6, batch     5 | loss: 60.9376409CurrentTrain: epoch  6, batch     6 | loss: 65.7851288CurrentTrain: epoch  6, batch     7 | loss: 62.9826512CurrentTrain: epoch  6, batch     8 | loss: 60.4273336CurrentTrain: epoch  6, batch     9 | loss: 70.8556759CurrentTrain: epoch  6, batch    10 | loss: 61.5068723CurrentTrain: epoch  6, batch    11 | loss: 60.6921930CurrentTrain: epoch  6, batch    12 | loss: 23.6964268CurrentTrain: epoch  7, batch     0 | loss: 64.4174800CurrentTrain: epoch  7, batch     1 | loss: 69.5532483CurrentTrain: epoch  7, batch     2 | loss: 64.3040568CurrentTrain: epoch  7, batch     3 | loss: 64.4289395CurrentTrain: epoch  7, batch     4 | loss: 62.5597316CurrentTrain: epoch  7, batch     5 | loss: 68.4865336CurrentTrain: epoch  7, batch     6 | loss: 67.2409314CurrentTrain: epoch  7, batch     7 | loss: 61.6028439CurrentTrain: epoch  7, batch     8 | loss: 66.0402662CurrentTrain: epoch  7, batch     9 | loss: 64.3732634CurrentTrain: epoch  7, batch    10 | loss: 70.2485970CurrentTrain: epoch  7, batch    11 | loss: 61.1714917CurrentTrain: epoch  7, batch    12 | loss: 28.3404240CurrentTrain: epoch  8, batch     0 | loss: 61.8983749CurrentTrain: epoch  8, batch     1 | loss: 62.0137976CurrentTrain: epoch  8, batch     2 | loss: 71.2260161CurrentTrain: epoch  8, batch     3 | loss: 59.9904959CurrentTrain: epoch  8, batch     4 | loss: 68.6540768CurrentTrain: epoch  8, batch     5 | loss: 58.4433086CurrentTrain: epoch  8, batch     6 | loss: 62.9021155CurrentTrain: epoch  8, batch     7 | loss: 61.3461871CurrentTrain: epoch  8, batch     8 | loss: 62.9501077CurrentTrain: epoch  8, batch     9 | loss: 60.6651000CurrentTrain: epoch  8, batch    10 | loss: 63.1810859CurrentTrain: epoch  8, batch    11 | loss: 66.0860779CurrentTrain: epoch  8, batch    12 | loss: 24.5417656CurrentTrain: epoch  9, batch     0 | loss: 62.8707283CurrentTrain: epoch  9, batch     1 | loss: 59.5309645CurrentTrain: epoch  9, batch     2 | loss: 59.4823267CurrentTrain: epoch  9, batch     3 | loss: 63.3812062CurrentTrain: epoch  9, batch     4 | loss: 60.4581214CurrentTrain: epoch  9, batch     5 | loss: 61.6286412CurrentTrain: epoch  9, batch     6 | loss: 62.3348500CurrentTrain: epoch  9, batch     7 | loss: 60.6022939CurrentTrain: epoch  9, batch     8 | loss: 67.6371893CurrentTrain: epoch  9, batch     9 | loss: 63.7829298CurrentTrain: epoch  9, batch    10 | loss: 61.5858450CurrentTrain: epoch  9, batch    11 | loss: 64.5941792CurrentTrain: epoch  9, batch    12 | loss: 24.2867170
+Threshold: -11.033462951941395, Accuracy: 1.0
+Threshold1: 0.4419959783554077, Accuracy1: 1.0
+Threshold2: 0.015552946262889437, Accuracy2: 1.0
+
+F1 score per class: {32: np.float64(0.8093023255813954), 6: np.float64(0.99), 19: np.float64(0.7647058823529411), 24: np.float64(0.7821229050279329), 26: np.float64(0.9850746268656716), 29: np.float64(0.9371980676328503)}
+Micro-average F1 score: 0.8976833976833977
+Weighted-average F1 score: 0.8993542502062973
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.9850746268656716), 19: np.float64(0.7567567567567568), 24: np.float64(0.768361581920904), 26: np.float64(0.9850746268656716), 29: np.float64(0.9261083743842364)}
+Micro-average F1 score: 0.8139281828073993
+Weighted-average F1 score: 0.9174973999369825
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.9850746268656716), 19: np.float64(0.7567567567567568), 24: np.float64(0.768361581920904), 26: np.float64(0.9850746268656716), 29: np.float64(0.9261083743842364)}
+Micro-average F1 score: 0.8139281828073993
+Weighted-average F1 score: 0.9174973999369825
+
+F1 score per class: {32: np.float64(0.8093023255813954), 6: np.float64(0.99), 19: np.float64(0.7647058823529411), 24: np.float64(0.7821229050279329), 26: np.float64(0.9850746268656716), 29: np.float64(0.9371980676328503)}
+Micro-average F1 score: 0.8976833976833977
+Weighted-average F1 score: 0.8993542502062973
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.9850746268656716), 19: np.float64(0.7567567567567568), 24: np.float64(0.768361581920904), 26: np.float64(0.9850746268656716), 29: np.float64(0.9261083743842364)}
+Micro-average F1 score: 0.8139281828073993
+Weighted-average F1 score: 0.9174973999369825
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.9850746268656716), 19: np.float64(0.7567567567567568), 24: np.float64(0.768361581920904), 26: np.float64(0.9850746268656716), 29: np.float64(0.9261083743842364)}
+Micro-average F1 score: 0.8139281828073993
+Weighted-average F1 score: 0.9174973999369825
+
+F1 score per class: {32: np.float64(0.17417417417417416), 6: np.float64(0.3183279742765273), 19: np.float64(0.040498442367601244), 24: np.float64(0.5533596837944664), 26: np.float64(0.24205378973105135), 29: np.float64(0.17946345975948197)}
+Micro-average F1 score: 0.21064552661381652
+Weighted-average F1 score: 0.20080398251573342
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.2757660167130919), 19: np.float64(0.034610630407911), 24: np.float64(0.4108761329305136), 26: np.float64(0.21568627450980393), 29: np.float64(0.22954822954822954)}
+Micro-average F1 score: 0.20243572395128553
+Weighted-average F1 score: 0.19961893084120041
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.28165007112375534), 19: np.float64(0.03414634146341464), 24: np.float64(0.43174603174603177), 26: np.float64(0.21336206896551724), 29: np.float64(0.22871046228710462)}
+Micro-average F1 score: 0.20281995661605207
+Weighted-average F1 score: 0.1993181395714251
+
+F1 score per class: {32: np.float64(0.17417417417417416), 6: np.float64(0.3183279742765273), 19: np.float64(0.040498442367601244), 24: np.float64(0.5533596837944664), 26: np.float64(0.24205378973105135), 29: np.float64(0.17946345975948197)}
+Micro-average F1 score: 0.21064552661381652
+Weighted-average F1 score: 0.20080398251573342
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.2757660167130919), 19: np.float64(0.034610630407911), 24: np.float64(0.4108761329305136), 26: np.float64(0.21568627450980393), 29: np.float64(0.22954822954822954)}
+Micro-average F1 score: 0.20243572395128553
+Weighted-average F1 score: 0.19961893084120041
+F1 score per class: {32: np.float64(0.0), 6: np.float64(0.28165007112375534), 19: np.float64(0.03414634146341464), 24: np.float64(0.43174603174603177), 26: np.float64(0.21336206896551724), 29: np.float64(0.22871046228710462)}
+Micro-average F1 score: 0.20281995661605207
+Weighted-average F1 score: 0.1993181395714251
+cur_acc_wo_na:  ['0.8977']
+his_acc_wo_na:  ['0.8977']
+cur_acc des_wo_na:  ['0.8139']
+his_acc des_wo_na:  ['0.8139']
+cur_acc rrf_wo_na:  ['0.8139']
+his_acc rrf_wo_na:  ['0.8139']
+cur_acc_w_na:  ['0.2106']
+his_acc_w_na:  ['0.2106']
+cur_acc des_w_na:  ['0.2024']
+his_acc des_w_na:  ['0.2024']
+cur_acc rrf_w_na:  ['0.2028']
+his_acc rrf_w_na:  ['0.2028']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death'])
+CurrentTrain: epoch  0, batch     0 | loss: 38.9433443CurrentTrain: epoch  1, batch     0 | loss: 36.0749753CurrentTrain: epoch  2, batch     0 | loss: 34.2478703CurrentTrain: epoch  3, batch     0 | loss: 32.2776992CurrentTrain: epoch  4, batch     0 | loss: 30.5268393CurrentTrain: epoch  5, batch     0 | loss: 29.6103020CurrentTrain: epoch  6, batch     0 | loss: 28.5798290CurrentTrain: epoch  7, batch     0 | loss: 27.4964162CurrentTrain: epoch  8, batch     0 | loss: 26.6850000CurrentTrain: epoch  9, batch     0 | loss: 26.3579236
+MemoryTrain:  epoch  0, batch     0 | loss: 1.1686176MemoryTrain:  epoch  1, batch     0 | loss: 0.8009871MemoryTrain:  epoch  2, batch     0 | loss: 0.5955466MemoryTrain:  epoch  3, batch     0 | loss: 0.4327473MemoryTrain:  epoch  4, batch     0 | loss: 0.3616157MemoryTrain:  epoch  5, batch     0 | loss: 0.2474358MemoryTrain:  epoch  6, batch     0 | loss: 0.1932244MemoryTrain:  epoch  7, batch     0 | loss: 0.1930889MemoryTrain:  epoch  8, batch     0 | loss: 0.1427199MemoryTrain:  epoch  9, batch     0 | loss: 0.1108915
+Threshold: -16.4306810620771, Accuracy: 1.0
+Threshold1: 0.21035574481944846, Accuracy1: 1.0
+Threshold2: 0.014434345405210148, Accuracy2: 1.0
+
+F1 score per class: {2: np.float64(0.9411764705882353), 6: np.float64(0.0), 39: np.float64(0.9830508474576272), 11: np.float64(0.9139784946236559), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.625), 28: np.float64(0.35294117647058826)}
+Micro-average F1 score: 0.8584474885844748
+Weighted-average F1 score: 0.8204653481985429
+F1 score per class: {2: np.float64(0.9411764705882353), 39: np.float64(0.9886363636363636), 11: np.float64(0.8901098901098901), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.7142857142857143), 28: np.float64(0.42105263157894735)}
+Micro-average F1 score: 0.8767772511848341
+Weighted-average F1 score: 0.8566965526961866
+F1 score per class: {2: np.float64(0.9411764705882353), 39: np.float64(0.9886363636363636), 11: np.float64(0.8961748633879781), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.7142857142857143), 28: np.float64(0.3333333333333333)}
+Micro-average F1 score: 0.8788598574821853
+Weighted-average F1 score: 0.864014718044335
+
+F1 score per class: {32: np.float64(0.9411764705882353), 2: np.float64(0.7272727272727273), 6: np.float64(0.9666666666666667), 39: np.float64(0.8900523560209425), 11: np.float64(0.941747572815534), 12: np.float64(0.7428571428571429), 19: np.float64(0.7528089887640449), 24: np.float64(0.5555555555555556), 26: np.float64(0.9743589743589743), 28: np.float64(0.941747572815534), 29: np.float64(0.35294117647058826)}
+Micro-average F1 score: 0.8697421981004071
+Weighted-average F1 score: 0.872329547363368
+F1 score per class: {32: np.float64(0.9411764705882353), 2: np.float64(0.0), 6: np.float64(0.9775280898876404), 39: np.float64(0.8571428571428571), 11: np.float64(0.9134615384615384), 12: np.float64(0.717948717948718), 19: np.float64(0.7717391304347826), 24: np.float64(0.5555555555555556), 26: np.float64(0.9743589743589743), 28: np.float64(0.9313725490196079), 29: np.float64(0.4)}
+Micro-average F1 score: 0.8210059171597633
+Weighted-average F1 score: 0.8906209976346279
+F1 score per class: {32: np.float64(0.9411764705882353), 2: np.float64(0.0), 6: np.float64(0.9775280898876404), 39: np.float64(0.8586387434554974), 11: np.float64(0.9178743961352657), 12: np.float64(0.717948717948718), 19: np.float64(0.7666666666666667), 24: np.float64(0.5555555555555556), 26: np.float64(0.9690721649484536), 28: np.float64(0.9313725490196079), 29: np.float64(0.3157894736842105)}
+Micro-average F1 score: 0.8195991091314031
+Weighted-average F1 score: 0.8907473997261377
+
+F1 score per class: {32: np.float64(0.13333333333333333), 2: np.float64(0.0), 6: np.float64(0.2740157480314961), 39: np.float64(0.37527593818984545), 11: np.float64(0.0), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.07751937984496124), 26: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.08955223880597014)}
+Micro-average F1 score: 0.17570093457943925
+Weighted-average F1 score: 0.16204327640406066
+F1 score per class: {32: np.float64(0.09815950920245399), 2: np.float64(0.28338762214983715), 39: np.float64(0.3698630136986301), 11: np.float64(0.0), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.07194244604316546), 26: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.07476635514018691)}
+Micro-average F1 score: 0.1916105644743656
+Weighted-average F1 score: 0.17848708163424143
+F1 score per class: {32: np.float64(0.10884353741496598), 2: np.float64(0.2797427652733119), 39: np.float64(0.35964912280701755), 11: np.float64(0.0), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.07142857142857142), 26: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.06896551724137931)}
+Micro-average F1 score: 0.19220779220779222
+Weighted-average F1 score: 0.1798951856539884
+
+F1 score per class: {32: np.float64(0.06779661016949153), 2: np.float64(0.15412844036697249), 6: np.float64(0.16698656429942418), 39: np.float64(0.16617790811339198), 11: np.float64(0.27132867132867133), 12: np.float64(0.032418952618453865), 19: np.float64(0.5469387755102041), 24: np.float64(0.053475935828877004), 26: np.float64(0.76), 28: np.float64(0.1706244503078276), 29: np.float64(0.06451612903225806)}
+Micro-average F1 score: 0.18797653958944283
+Weighted-average F1 score: 0.17390442443649576
+F1 score per class: {32: np.float64(0.047337278106508875), 2: np.float64(0.0), 6: np.float64(0.18238993710691823), 39: np.float64(0.14660633484162897), 11: np.float64(0.3161397670549085), 12: np.float64(0.03444034440344403), 19: np.float64(0.4316109422492401), 24: np.float64(0.05102040816326531), 26: np.float64(0.7011070110701108), 28: np.float64(0.18251681075888568), 29: np.float64(0.03669724770642202)}
+Micro-average F1 score: 0.18605430774388199
+Weighted-average F1 score: 0.17482954914930143
+F1 score per class: {32: np.float64(0.053691275167785234), 2: np.float64(0.0), 6: np.float64(0.17993795243019647), 39: np.float64(0.14616755793226383), 11: np.float64(0.3035143769968051), 12: np.float64(0.03393939393939394), 19: np.float64(0.46938775510204084), 24: np.float64(0.05128205128205128), 26: np.float64(0.6861313868613139), 28: np.float64(0.1792452830188679), 29: np.float64(0.0425531914893617)}
+Micro-average F1 score: 0.1870552355133853
+Weighted-average F1 score: 0.17572520668663832
+cur_acc_wo_na:  ['0.8977', '0.8584']
+his_acc_wo_na:  ['0.8977', '0.8697']
+cur_acc des_wo_na:  ['0.8139', '0.8768']
+his_acc des_wo_na:  ['0.8139', '0.8210']
+cur_acc rrf_wo_na:  ['0.8139', '0.8789']
+his_acc rrf_wo_na:  ['0.8139', '0.8196']
+cur_acc_w_na:  ['0.2106', '0.1757']
+his_acc_w_na:  ['0.2106', '0.1880']
+cur_acc des_w_na:  ['0.2024', '0.1916']
+his_acc des_w_na:  ['0.2024', '0.1861']
+cur_acc rrf_w_na:  ['0.2028', '0.1922']
+his_acc rrf_w_na:  ['0.2028', '0.1871']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by'])
+CurrentTrain: epoch  0, batch     0 | loss: 40.7721842CurrentTrain: epoch  1, batch     0 | loss: 35.6543413CurrentTrain: epoch  2, batch     0 | loss: 34.2260735CurrentTrain: epoch  3, batch     0 | loss: 32.3322375CurrentTrain: epoch  4, batch     0 | loss: 31.1037747CurrentTrain: epoch  5, batch     0 | loss: 30.7333873CurrentTrain: epoch  6, batch     0 | loss: 29.6577025CurrentTrain: epoch  7, batch     0 | loss: 28.1949088CurrentTrain: epoch  8, batch     0 | loss: 28.2360607CurrentTrain: epoch  9, batch     0 | loss: 27.8246787
+MemoryTrain:  epoch  0, batch     0 | loss: 0.7946411MemoryTrain:  epoch  1, batch     0 | loss: 0.7548942MemoryTrain:  epoch  2, batch     0 | loss: 0.6476898MemoryTrain:  epoch  3, batch     0 | loss: 0.4519519MemoryTrain:  epoch  4, batch     0 | loss: 0.3812119MemoryTrain:  epoch  5, batch     0 | loss: 0.3171984MemoryTrain:  epoch  6, batch     0 | loss: 0.2477822MemoryTrain:  epoch  7, batch     0 | loss: 0.1798068MemoryTrain:  epoch  8, batch     0 | loss: 0.1649185MemoryTrain:  epoch  9, batch     0 | loss: 0.1320523
+Threshold: -13.774247139625647, Accuracy: 0.9933774834437086
+Threshold1: 0.18982252343134448, Accuracy1: 1.0
+Threshold2: 0.013452036306262016, Accuracy2: 1.0
+
+F1 score per class: {6: np.float64(0.0), 7: np.float64(0.5714285714285714), 40: np.float64(0.9803921568627451), 9: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.8461538461538461), 27: np.float64(1.0), 31: np.float64(0.25316455696202533)}
+Micro-average F1 score: 0.43859649122807015
+Weighted-average F1 score: 0.3634865893948074
+F1 score per class: {7: np.float64(0.75), 40: np.float64(1.0), 9: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.8461538461538461), 27: np.float64(1.0), 31: np.float64(0.32098765432098764)}
+Micro-average F1 score: 0.4845814977973568
+Weighted-average F1 score: 0.40197203102807827
+F1 score per class: {7: np.float64(0.75), 40: np.float64(1.0), 9: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.8461538461538461), 27: np.float64(1.0), 31: np.float64(0.32098765432098764)}
+Micro-average F1 score: 0.4845814977973568
+Weighted-average F1 score: 0.40197203102807827
+
+F1 score per class: {32: np.float64(0.9411764705882353), 2: np.float64(0.5604395604395604), 6: np.float64(0.06153846153846154), 7: np.float64(0.9803921568627451), 40: np.float64(0.9398907103825137), 39: np.float64(0.7904191616766467), 11: np.float64(0.7049808429118773), 12: np.float64(0.45161290322580644), 9: np.float64(0.7428571428571429), 19: np.float64(0.5641025641025641), 24: np.float64(0.5333333333333333), 26: np.float64(0.9312169312169312), 27: np.float64(1.0), 28: np.float64(0.9371980676328503), 29: np.float64(0.3333333333333333), 31: np.float64(0.20618556701030927)}
+Micro-average F1 score: 0.7254556143445032
+Weighted-average F1 score: 0.7175219443646916
+F1 score per class: {32: np.float64(0.9411764705882353), 2: np.float64(0.0), 6: np.float64(0.08571428571428572), 7: np.float64(0.9811320754716981), 40: np.float64(0.9720670391061452), 9: np.float64(0.7865168539325843), 39: np.float64(0.7027027027027027), 12: np.float64(0.4444444444444444), 11: np.float64(0.7415730337078652), 19: np.float64(0.55), 24: np.float64(0.5333333333333333), 26: np.float64(0.9247311827956989), 27: np.float64(1.0), 28: np.float64(0.9365853658536586), 29: np.float64(0.47619047619047616), 31: np.float64(0.26804123711340205)}
+Micro-average F1 score: 0.7047268262737876
+Weighted-average F1 score: 0.7358977578100693
+F1 score per class: {32: np.float64(0.9411764705882353), 2: np.float64(0.0), 6: np.float64(0.08571428571428572), 7: np.float64(1.0), 40: np.float64(0.9720670391061452), 39: np.float64(0.7909604519774012), 11: np.float64(0.7054263565891473), 12: np.float64(0.42857142857142855), 9: np.float64(0.7457627118644068), 19: np.float64(0.55), 24: np.float64(0.5714285714285714), 26: np.float64(0.93048128342246), 27: np.float64(1.0), 28: np.float64(0.9320388349514563), 29: np.float64(0.47619047619047616), 31: np.float64(0.26804123711340205)}
+Micro-average F1 score: 0.7068223724646588
+Weighted-average F1 score: 0.7380963813636782
+
+F1 score per class: {32: np.float64(0.0), 2: np.float64(0.0), 6: np.float64(0.2), 7: np.float64(0.6097560975609756), 40: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.3333333333333333), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.06153846153846154), 29: np.float64(0.0), 31: np.float64(0.11560693641618497)}
+Micro-average F1 score: 0.13210039630118892
+Weighted-average F1 score: 0.11015343628414274
+F1 score per class: {32: np.float64(0.0), 2: np.float64(0.2608695652173913), 7: np.float64(0.5098039215686274), 40: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 39: np.float64(0.0), 12: np.float64(0.0), 19: np.float64(0.3055555555555556), 24: np.float64(0.0), 26: np.float64(0.0), 27: np.float64(0.05970149253731343), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.14942528735632185)}
+Micro-average F1 score: 0.14360313315926893
+Weighted-average F1 score: 0.12452178752392942
+F1 score per class: {32: np.float64(0.0), 2: np.float64(0.2857142857142857), 7: np.float64(0.5591397849462365), 40: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.3235294117647059), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.05333333333333334), 29: np.float64(0.0), 31: np.float64(0.14689265536723164)}
+Micro-average F1 score: 0.14397905759162305
+Weighted-average F1 score: 0.12266545319730279
+
+F1 score per class: {32: np.float64(0.14035087719298245), 2: np.float64(0.13093709884467267), 6: np.float64(0.012944983818770227), 7: np.float64(0.5813953488372093), 40: np.float64(0.19838523644752018), 39: np.float64(0.24444444444444444), 11: np.float64(0.3145299145299145), 12: np.float64(0.03056768558951965), 9: np.float64(0.6018518518518519), 19: np.float64(0.0859375), 24: np.float64(0.05228758169934641), 26: np.float64(0.7927927927927928), 27: np.float64(0.008988764044943821), 28: np.float64(0.19113300492610838), 29: np.float64(0.07407407407407407), 31: np.float64(0.02262443438914027)}
+Micro-average F1 score: 0.1760342368045649
+Weighted-average F1 score: 0.15714399155256487
+F1 score per class: {32: np.float64(0.03980099502487562), 2: np.float64(0.0), 6: np.float64(0.016042780748663103), 7: np.float64(0.3076923076923077), 40: np.float64(0.20232558139534884), 9: np.float64(0.17834394904458598), 39: np.float64(0.2778625954198473), 12: np.float64(0.02702702702702703), 11: np.float64(0.49070631970260226), 19: np.float64(0.08088235294117647), 24: np.float64(0.03864734299516908), 26: np.float64(0.7319148936170212), 27: np.float64(0.007619047619047619), 28: np.float64(0.2119205298013245), 29: np.float64(0.046296296296296294), 31: np.float64(0.04220779220779221)}
+Micro-average F1 score: 0.16318407960199005
+Weighted-average F1 score: 0.14995172142424074
+F1 score per class: {32: np.float64(0.05517241379310345), 2: np.float64(0.0), 6: np.float64(0.0182370820668693), 7: np.float64(0.43333333333333335), 40: np.float64(0.19616685456595265), 39: np.float64(0.1897018970189702), 11: np.float64(0.2778625954198473), 12: np.float64(0.024489795918367346), 9: np.float64(0.532258064516129), 19: np.float64(0.08118081180811808), 24: np.float64(0.03827751196172249), 26: np.float64(0.71900826446281), 27: np.float64(0.006920415224913495), 28: np.float64(0.2033898305084746), 29: np.float64(0.07575757575757576), 31: np.float64(0.03561643835616438)}
+Micro-average F1 score: 0.16515869596438318
+Weighted-average F1 score: 0.1510736413824328
+cur_acc_wo_na:  ['0.8977', '0.8584', '0.4386']
+his_acc_wo_na:  ['0.8977', '0.8697', '0.7255']
+cur_acc des_wo_na:  ['0.8139', '0.8768', '0.4846']
+his_acc des_wo_na:  ['0.8139', '0.8210', '0.7047']
+cur_acc rrf_wo_na:  ['0.8139', '0.8789', '0.4846']
+his_acc rrf_wo_na:  ['0.8139', '0.8196', '0.7068']
+cur_acc_w_na:  ['0.2106', '0.1757', '0.1321']
+his_acc_w_na:  ['0.2106', '0.1880', '0.1760']
+cur_acc des_w_na:  ['0.2024', '0.1916', '0.1436']
+his_acc des_w_na:  ['0.2024', '0.1861', '0.1632']
+cur_acc rrf_w_na:  ['0.2028', '0.1922', '0.1440']
+his_acc rrf_w_na:  ['0.2028', '0.1871', '0.1652']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by', 'person cause of death', 'organization political religious affiliation', 'organization stateorprovince of headquarters', 'person other family', 'person city of death'])
+CurrentTrain: epoch  0, batch     0 | loss: 28.6183227CurrentTrain: epoch  1, batch     0 | loss: 26.3777483CurrentTrain: epoch  2, batch     0 | loss: 25.7120170CurrentTrain: epoch  3, batch     0 | loss: 25.4602293CurrentTrain: epoch  4, batch     0 | loss: 25.1169987CurrentTrain: epoch  5, batch     0 | loss: 24.9799245CurrentTrain: epoch  6, batch     0 | loss: 24.8099002CurrentTrain: epoch  7, batch     0 | loss: 24.7933281CurrentTrain: epoch  8, batch     0 | loss: 24.7408655CurrentTrain: epoch  9, batch     0 | loss: 24.6174191
+MemoryTrain:  epoch  0, batch     0 | loss: 0.8382003MemoryTrain:  epoch  1, batch     0 | loss: 0.6818189MemoryTrain:  epoch  2, batch     0 | loss: 0.5931984MemoryTrain:  epoch  3, batch     0 | loss: 0.4654456MemoryTrain:  epoch  4, batch     0 | loss: 0.3458119MemoryTrain:  epoch  5, batch     0 | loss: 0.2740712MemoryTrain:  epoch  6, batch     0 | loss: 0.1931700MemoryTrain:  epoch  7, batch     0 | loss: 0.1671007MemoryTrain:  epoch  8, batch     0 | loss: 0.1362438MemoryTrain:  epoch  9, batch     0 | loss: 0.0976640
+Threshold: -18.46671965815591, Accuracy: 1.0
+Threshold1: 0.12245874761631995, Accuracy1: 1.0
+Threshold2: 0.012754544013678426, Accuracy2: 1.0
+
+F1 score per class: {32: np.float64(0.0), 35: np.float64(0.0), 37: np.float64(0.0), 6: np.float64(0.6153846153846154), 38: np.float64(0.0), 40: np.float64(0.0), 9: np.float64(0.8571428571428571), 39: np.float64(0.0), 11: np.float64(0.0), 15: np.float64(0.0), 19: np.float64(0.9278350515463918), 24: np.float64(0.7628865979381443), 25: np.float64(0.9056603773584906), 27: np.float64(0.0), 28: np.float64(0.0)}
+Micro-average F1 score: 0.7611940298507462
+Weighted-average F1 score: 0.6807136875797657
+F1 score per class: {32: np.float64(0.0), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 7: np.float64(0.6666666666666666), 39: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.9052631578947369), 12: np.float64(0.0), 15: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.0), 25: np.float64(0.9278350515463918), 26: np.float64(0.9090909090909091), 27: np.float64(0.9019607843137255), 28: np.float64(0.0)}
+Micro-average F1 score: 0.84
+Weighted-average F1 score: 0.7795965074758904
+F1 score per class: {32: np.float64(0.0), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.6363636363636364), 39: np.float64(0.0), 40: np.float64(0.0), 9: np.float64(0.9166666666666666), 11: np.float64(0.0), 12: np.float64(0.0), 15: np.float64(0.0), 19: np.float64(0.0), 24: np.float64(0.9278350515463918), 25: np.float64(0.8990825688073395), 26: np.float64(0.9019607843137255), 27: np.float64(0.0), 28: np.float64(0.0)}
+Micro-average F1 score: 0.84
+Weighted-average F1 score: 0.7811570515156097
+
+F1 score per class: {2: np.float64(0.9411764705882353), 6: np.float64(0.5747126436781609), 7: np.float64(0.07407407407407407), 9: np.float64(0.9615384615384616), 11: np.float64(0.6666666666666666), 12: np.float64(0.7757575757575758), 15: np.float64(0.45714285714285713), 19: np.float64(0.6996197718631179), 24: np.float64(0.41379310344827586), 25: np.float64(0.8571428571428571), 26: np.float64(0.75), 27: np.float64(0.4444444444444444), 28: np.float64(0.6153846153846154), 29: np.float64(0.9032258064516129), 31: np.float64(1.0), 32: np.float64(0.9223300970873787), 35: np.float64(0.9), 37: np.float64(0.5323741007194245), 38: np.float64(0.631578947368421), 39: np.float64(0.23529411764705882), 40: np.float64(0.18)}
+Micro-average F1 score: 0.6901140684410646
+Weighted-average F1 score: 0.6811549651345659
+F1 score per class: {2: np.float64(0.9411764705882353), 6: np.float64(0.0), 7: np.float64(0.10714285714285714), 9: np.float64(0.9811320754716981), 11: np.float64(0.7027027027027027), 12: np.float64(0.7978142076502732), 15: np.float64(0.4666666666666667), 19: np.float64(0.7072243346007605), 24: np.float64(0.41379310344827586), 25: np.float64(0.8958333333333334), 26: np.float64(0.7415730337078652), 27: np.float64(0.5128205128205128), 28: np.float64(0.6153846153846154), 29: np.float64(0.9312169312169312), 31: np.float64(1.0), 32: np.float64(0.9215686274509803), 35: np.float64(0.8910891089108911), 37: np.float64(0.6711409395973155), 38: np.float64(0.696969696969697), 39: np.float64(0.2), 40: np.float64(0.22988505747126436)}
+Micro-average F1 score: 0.6962962962962963
+Weighted-average F1 score: 0.7273970775034988
+F1 score per class: {2: np.float64(0.9411764705882353), 6: np.float64(0.0), 7: np.float64(0.1111111111111111), 9: np.float64(0.9615384615384616), 11: np.float64(0.6973684210526315), 12: np.float64(0.797752808988764), 15: np.float64(0.4375), 19: np.float64(0.7072243346007605), 24: np.float64(0.41379310344827586), 25: np.float64(0.9166666666666666), 26: np.float64(0.7415730337078652), 27: np.float64(0.5), 28: np.float64(0.6153846153846154), 29: np.float64(0.9312169312169312), 31: np.float64(1.0), 32: np.float64(0.9215686274509803), 35: np.float64(0.8910891089108911), 37: np.float64(0.6666666666666666), 38: np.float64(0.6865671641791045), 39: np.float64(0.2222222222222222), 40: np.float64(0.2222222222222222)}
+Micro-average F1 score: 0.6946640316205533
+Weighted-average F1 score: 0.7251720110437074
+
+F1 score per class: {2: np.float64(0.0), 6: np.float64(0.0), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 15: np.float64(0.17391304347826086), 19: np.float64(0.0), 24: np.float64(0.0), 25: np.float64(0.5571428571428572), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 35: np.float64(0.45918367346938777), 37: np.float64(0.3333333333333333), 38: np.float64(0.24615384615384617), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.16981132075471697
+Weighted-average F1 score: 0.14052390128328693
+F1 score per class: {2: np.float64(0.0), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 15: np.float64(0.208955223880597), 19: np.float64(0.0), 24: np.float64(0.0), 25: np.float64(0.4321608040201005), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 35: np.float64(0.42452830188679247), 37: np.float64(0.4048582995951417), 38: np.float64(0.3333333333333333), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.19255014326647565
+Weighted-average F1 score: 0.1659082326728501
+F1 score per class: {2: np.float64(0.0), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 15: np.float64(0.17073170731707318), 19: np.float64(0.0), 24: np.float64(0.0), 25: np.float64(0.5116279069767442), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 35: np.float64(0.430622009569378), 37: np.float64(0.3951612903225806), 38: np.float64(0.30666666666666664), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.1927710843373494
+Weighted-average F1 score: 0.1643514689947982
+
+F1 score per class: {2: np.float64(0.08), 6: np.float64(0.18115942028985507), 7: np.float64(0.02127659574468085), 9: np.float64(0.4807692307692308), 11: np.float64(0.1695447409733124), 12: np.float64(0.1893491124260355), 15: np.float64(0.031683168316831684), 19: np.float64(0.2544951590594744), 24: np.float64(0.026200873362445413), 25: np.float64(0.4875), 26: np.float64(0.6346153846153846), 27: np.float64(0.05747126436781609), 28: np.float64(0.0975609756097561), 29: np.float64(0.6829268292682927), 31: np.float64(0.004459308807134894), 32: np.float64(0.2550335570469799), 35: np.float64(0.20044543429844097), 37: np.float64(0.10150891632373114), 38: np.float64(0.07250755287009064), 39: np.float64(0.08), 40: np.float64(0.02278481012658228)}
+Micro-average F1 score: 0.15432033159740674
+Weighted-average F1 score: 0.13824433679363912
+F1 score per class: {2: np.float64(0.03611738148984198), 6: np.float64(0.0), 7: np.float64(0.020761245674740483), 9: np.float64(0.31137724550898205), 11: np.float64(0.20594059405940593), 12: np.float64(0.15384615384615385), 15: np.float64(0.0440251572327044), 19: np.float64(0.23544303797468355), 24: np.float64(0.02654867256637168), 25: np.float64(0.31851851851851853), 26: np.float64(0.48), 27: np.float64(0.06734006734006734), 28: np.float64(0.05755395683453238), 29: np.float64(0.6153846153846154), 31: np.float64(0.006309148264984227), 32: np.float64(0.2493368700265252), 35: np.float64(0.17509727626459143), 37: np.float64(0.12919896640826872), 38: np.float64(0.12568306010928962), 39: np.float64(0.04040404040404041), 40: np.float64(0.05221932114882506)}
+Micro-average F1 score: 0.16015447523852794
+Weighted-average F1 score: 0.15051655473756703
+F1 score per class: {2: np.float64(0.045714285714285714), 6: np.float64(0.0), 7: np.float64(0.025210084033613446), 9: np.float64(0.37593984962406013), 11: np.float64(0.19776119402985073), 12: np.float64(0.17380660954712362), 15: np.float64(0.03580562659846547), 19: np.float64(0.22934648581997533), 24: np.float64(0.02575107296137339), 25: np.float64(0.3682008368200837), 26: np.float64(0.528), 27: np.float64(0.06134969325153374), 28: np.float64(0.06060606060606061), 29: np.float64(0.6285714285714286), 31: np.float64(0.005738880918220947), 32: np.float64(0.24352331606217617), 35: np.float64(0.18181818181818182), 37: np.float64(0.12296110414052698), 38: np.float64(0.10978520286396182), 39: np.float64(0.058823529411764705), 40: np.float64(0.042735042735042736)}
+Micro-average F1 score: 0.16004553215708595
+Weighted-average F1 score: 0.1491328763702955
+cur_acc_wo_na:  ['0.8977', '0.8584', '0.4386', '0.7612']
+his_acc_wo_na:  ['0.8977', '0.8697', '0.7255', '0.6901']
+cur_acc des_wo_na:  ['0.8139', '0.8768', '0.4846', '0.8400']
+his_acc des_wo_na:  ['0.8139', '0.8210', '0.7047', '0.6963']
+cur_acc rrf_wo_na:  ['0.8139', '0.8789', '0.4846', '0.8400']
+his_acc rrf_wo_na:  ['0.8139', '0.8196', '0.7068', '0.6947']
+cur_acc_w_na:  ['0.2106', '0.1757', '0.1321', '0.1698']
+his_acc_w_na:  ['0.2106', '0.1880', '0.1760', '0.1543']
+cur_acc des_w_na:  ['0.2024', '0.1916', '0.1436', '0.1926']
+his_acc des_w_na:  ['0.2024', '0.1861', '0.1632', '0.1602']
+cur_acc rrf_w_na:  ['0.2028', '0.1922', '0.1440', '0.1928']
+his_acc rrf_w_na:  ['0.2028', '0.1871', '0.1652', '0.1600']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by', 'person cause of death', 'organization political religious affiliation', 'organization stateorprovince of headquarters', 'person other family', 'person city of death', 'organization subsidiaries', 'organization parents', 'organization alternate names', 'organization city of headquarters', 'person siblings'])
+CurrentTrain: epoch  0, batch     0 | loss: 48.9326712CurrentTrain: epoch  1, batch     0 | loss: 42.1002713CurrentTrain: epoch  2, batch     0 | loss: 38.5175602CurrentTrain: epoch  3, batch     0 | loss: 36.6174427CurrentTrain: epoch  4, batch     0 | loss: 35.6949352CurrentTrain: epoch  5, batch     0 | loss: 35.0118251CurrentTrain: epoch  6, batch     0 | loss: 34.0417267CurrentTrain: epoch  7, batch     0 | loss: 33.0823497CurrentTrain: epoch  8, batch     0 | loss: 32.5146515CurrentTrain: epoch  9, batch     0 | loss: 31.4295497
+MemoryTrain:  epoch  0, batch     0 | loss: 1.0882130MemoryTrain:  epoch  1, batch     0 | loss: 0.8013474MemoryTrain:  epoch  2, batch     0 | loss: 0.6748862MemoryTrain:  epoch  3, batch     0 | loss: 0.5726277MemoryTrain:  epoch  4, batch     0 | loss: 0.4158523MemoryTrain:  epoch  5, batch     0 | loss: 0.3642143MemoryTrain:  epoch  6, batch     0 | loss: 0.3397141MemoryTrain:  epoch  7, batch     0 | loss: 0.2293744MemoryTrain:  epoch  8, batch     0 | loss: 0.1979929MemoryTrain:  epoch  9, batch     0 | loss: 0.1802062
+Threshold: -19.926171004859683, Accuracy: 1.0
+Threshold1: 0.10084954114875411, Accuracy1: 1.0
+Threshold2: 0.012157410797145631, Accuracy2: 1.0
+
+F1 score per class: {32: np.float64(0.3333333333333333), 1: np.float64(0.8085106382978723), 34: np.float64(0.0), 3: np.float64(0.0), 35: np.float64(0.03076923076923077), 37: np.float64(0.0), 38: np.float64(0.6789667896678967), 40: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 14: np.float64(0.8297872340425532), 15: np.float64(0.0), 22: np.float64(0.0), 24: np.float64(0.0), 27: np.float64(0.0)}
+Micro-average F1 score: 0.5801749271137027
+Weighted-average F1 score: 0.5877340870148262
+F1 score per class: {32: np.float64(0.49122807017543857), 1: np.float64(0.8251748251748252), 34: np.float64(0.0), 3: np.float64(0.0), 35: np.float64(0.030303030303030304), 37: np.float64(0.0), 40: np.float64(0.7319587628865979), 9: np.float64(0.0), 11: np.float64(0.0), 14: np.float64(0.0), 19: np.float64(0.0), 22: np.float64(0.0), 24: np.float64(0.9320388349514563), 26: np.float64(0.0), 27: np.float64(0.0), 31: np.float64(0.0)}
+Micro-average F1 score: 0.6043795620437956
+Weighted-average F1 score: 0.5800725998776821
+F1 score per class: {32: np.float64(0.4672897196261682), 1: np.float64(0.8251748251748252), 34: np.float64(0.0), 3: np.float64(0.0), 35: np.float64(0.029850746268656716), 37: np.float64(0.0), 40: np.float64(0.7309644670050761), 9: np.float64(0.0), 11: np.float64(0.0), 14: np.float64(0.0), 19: np.float64(0.0), 22: np.float64(0.0), 24: np.float64(0.9320388349514563), 26: np.float64(0.0), 27: np.float64(0.0), 31: np.float64(0.0)}
+Micro-average F1 score: 0.5985401459854015
+Weighted-average F1 score: 0.5718292040368963
+
+F1 score per class: {1: np.float64(0.2898550724637681), 2: np.float64(0.9411764705882353), 3: np.float64(0.6440677966101694), 6: np.float64(0.5813953488372093), 7: np.float64(0.10344827586206896), 9: np.float64(0.9230769230769231), 11: np.float64(0.3586206896551724), 12: np.float64(0.7682926829268293), 14: np.float64(0.029850746268656716), 15: np.float64(0.5714285714285714), 19: np.float64(0.708171206225681), 22: np.float64(0.6216216216216216), 24: np.float64(0.08333333333333333), 25: np.float64(0.8571428571428571), 26: np.float64(0.7486033519553073), 27: np.float64(0.14285714285714285), 28: np.float64(0.6153846153846154), 29: np.float64(0.9222797927461139), 31: np.float64(1.0), 32: np.float64(0.86), 34: np.float64(0.4482758620689655), 35: np.float64(0.4375), 37: np.float64(0.33707865168539325), 38: np.float64(0.6486486486486487), 39: np.float64(0.23529411764705882), 40: np.float64(0.24528301886792453)}
+Micro-average F1 score: 0.6
+Weighted-average F1 score: 0.6129787597220624
+F1 score per class: {1: np.float64(0.43410852713178294), 2: np.float64(0.9411764705882353), 3: np.float64(0.7065868263473054), 6: np.float64(0.0), 7: np.float64(0.09836065573770492), 9: np.float64(0.9454545454545454), 11: np.float64(0.42424242424242425), 12: np.float64(0.8089887640449438), 14: np.float64(0.030303030303030304), 15: np.float64(0.5384615384615384), 19: np.float64(0.7258064516129032), 22: np.float64(0.6995073891625616), 24: np.float64(0.16216216216216217), 25: np.float64(0.9166666666666666), 26: np.float64(0.7567567567567568), 27: np.float64(0.125), 28: np.float64(0.6153846153846154), 29: np.float64(0.9430051813471503), 31: np.float64(0.6666666666666666), 32: np.float64(0.9090909090909091), 34: np.float64(0.4824120603015075), 35: np.float64(0.5544554455445545), 37: np.float64(0.2597402597402597), 38: np.float64(0.696969696969697), 39: np.float64(0.2), 40: np.float64(0.38)}
+Micro-average F1 score: 0.614138438880707
+Weighted-average F1 score: 0.6445769565259232
+F1 score per class: {1: np.float64(0.4132231404958678), 2: np.float64(0.9411764705882353), 3: np.float64(0.7065868263473054), 6: np.float64(0.0), 7: np.float64(0.1), 9: np.float64(0.9433962264150944), 11: np.float64(0.4057971014492754), 12: np.float64(0.783625730994152), 14: np.float64(0.029850746268656716), 15: np.float64(0.5185185185185185), 19: np.float64(0.72), 22: np.float64(0.6923076923076923), 24: np.float64(0.16216216216216217), 25: np.float64(0.8936170212765957), 26: np.float64(0.7608695652173914), 27: np.float64(0.16666666666666666), 28: np.float64(0.6153846153846154), 29: np.float64(0.9484536082474226), 31: np.float64(0.6666666666666666), 32: np.float64(0.9082125603864735), 34: np.float64(0.5), 35: np.float64(0.5631067961165048), 37: np.float64(0.3), 38: np.float64(0.696969696969697), 39: np.float64(0.2), 40: np.float64(0.3883495145631068)}
+Micro-average F1 score: 0.6109064112011791
+Weighted-average F1 score: 0.6395259543465971
+
+F1 score per class: {1: np.float64(0.12903225806451613), 2: np.float64(0.0), 3: np.float64(0.2835820895522388), 6: np.float64(0.0), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 14: np.float64(0.01904761904761905), 15: np.float64(0.0), 19: np.float64(0.0), 22: np.float64(0.2530949105914718), 24: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 34: np.float64(0.41935483870967744), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.12606905289832118
+Weighted-average F1 score: 0.11354438156813998
+F1 score per class: {1: np.float64(0.15555555555555556), 2: np.float64(0.0), 3: np.float64(0.3532934131736527), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 14: np.float64(0.024390243902439025), 15: np.float64(0.0), 19: np.float64(0.0), 22: np.float64(0.35858585858585856), 24: np.float64(0.0), 25: np.float64(0.0), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 34: np.float64(0.42857142857142855), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.13389391979301424
+Weighted-average F1 score: 0.11540315973930534
+F1 score per class: {1: np.float64(0.14792899408284024), 2: np.float64(0.0), 3: np.float64(0.32065217391304346), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 14: np.float64(0.022222222222222223), 15: np.float64(0.0), 19: np.float64(0.0), 22: np.float64(0.3380281690140845), 24: np.float64(0.0), 25: np.float64(0.0), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 34: np.float64(0.4383561643835616), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.1323861801743623
+Weighted-average F1 score: 0.11543480838024812
+
+F1 score per class: {1: np.float64(0.08163265306122448), 2: np.float64(0.05423728813559322), 3: np.float64(0.11067961165048544), 6: np.float64(0.15174506828528073), 7: np.float64(0.022058823529411766), 9: np.float64(0.43636363636363634), 11: np.float64(0.08813559322033898), 12: np.float64(0.1978021978021978), 14: np.float64(0.0056022408963585435), 15: np.float64(0.045454545454545456), 19: np.float64(0.19912472647702406), 22: np.float64(0.13793103448275862), 24: np.float64(0.028169014084507043), 25: np.float64(0.5234899328859061), 26: np.float64(0.6175115207373272), 27: np.float64(0.058823529411764705), 28: np.float64(0.08888888888888889), 29: np.float64(0.5816993464052288), 31: np.float64(0.0035026269702276708), 32: np.float64(0.20574162679425836), 34: np.float64(0.11641791044776119), 35: np.float64(0.18025751072961374), 37: np.float64(0.0641025641025641), 38: np.float64(0.07868852459016394), 39: np.float64(0.06060606060606061), 40: np.float64(0.03076923076923077)}
+Micro-average F1 score: 0.13321661626611492
+Weighted-average F1 score: 0.123344149848127
+F1 score per class: {1: np.float64(0.10071942446043165), 2: np.float64(0.022099447513812154), 3: np.float64(0.15404699738903394), 6: np.float64(0.0), 7: np.float64(0.014457831325301205), 9: np.float64(0.24074074074074073), 11: np.float64(0.10894941634241245), 12: np.float64(0.15047021943573669), 14: np.float64(0.013333333333333334), 15: np.float64(0.061946902654867256), 19: np.float64(0.19480519480519481), 22: np.float64(0.1937244201909959), 24: np.float64(0.048), 25: np.float64(0.3176895306859206), 26: np.float64(0.4430379746835443), 27: np.float64(0.0392156862745098), 28: np.float64(0.05228758169934641), 29: np.float64(0.5852090032154341), 31: np.float64(0.0048484848484848485), 32: np.float64(0.19874476987447698), 34: np.float64(0.11334120425029516), 35: np.float64(0.19377162629757785), 37: np.float64(0.058997050147492625), 38: np.float64(0.10154525386313466), 39: np.float64(0.04), 40: np.float64(0.07279693486590039)}
+Micro-average F1 score: 0.1402151983860121
+Weighted-average F1 score: 0.13431503166737213
+F1 score per class: {1: np.float64(0.09652509652509653), 2: np.float64(0.031683168316831684), 3: np.float64(0.13833528722157093), 6: np.float64(0.0), 7: np.float64(0.017595307917888565), 9: np.float64(0.3597122302158273), 11: np.float64(0.09286898839137644), 12: np.float64(0.1675), 14: np.float64(0.01098901098901099), 15: np.float64(0.051470588235294115), 19: np.float64(0.18907563025210083), 22: np.float64(0.1708185053380783), 24: np.float64(0.049586776859504134), 25: np.float64(0.37333333333333335), 26: np.float64(0.5128205128205128), 27: np.float64(0.05357142857142857), 28: np.float64(0.06153846153846154), 29: np.float64(0.5644171779141104), 31: np.float64(0.004188481675392671), 32: np.float64(0.19831223628691982), 34: np.float64(0.12121212121212122), 35: np.float64(0.21014492753623187), 37: np.float64(0.06233766233766234), 38: np.float64(0.08695652173913043), 39: np.float64(0.047058823529411764), 40: np.float64(0.06430868167202572)}
+Micro-average F1 score: 0.13948010431563893
+Weighted-average F1 score: 0.13276085918894573
+cur_acc_wo_na:  ['0.8977', '0.8584', '0.4386', '0.7612', '0.5802']
+his_acc_wo_na:  ['0.8977', '0.8697', '0.7255', '0.6901', '0.6000']
+cur_acc des_wo_na:  ['0.8139', '0.8768', '0.4846', '0.8400', '0.6044']
+his_acc des_wo_na:  ['0.8139', '0.8210', '0.7047', '0.6963', '0.6141']
+cur_acc rrf_wo_na:  ['0.8139', '0.8789', '0.4846', '0.8400', '0.5985']
+his_acc rrf_wo_na:  ['0.8139', '0.8196', '0.7068', '0.6947', '0.6109']
+cur_acc_w_na:  ['0.2106', '0.1757', '0.1321', '0.1698', '0.1261']
+his_acc_w_na:  ['0.2106', '0.1880', '0.1760', '0.1543', '0.1332']
+cur_acc des_w_na:  ['0.2024', '0.1916', '0.1436', '0.1926', '0.1339']
+his_acc des_w_na:  ['0.2024', '0.1861', '0.1632', '0.1602', '0.1402']
+cur_acc rrf_w_na:  ['0.2028', '0.1922', '0.1440', '0.1928', '0.1324']
+his_acc rrf_w_na:  ['0.2028', '0.1871', '0.1652', '0.1600', '0.1395']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by', 'person cause of death', 'organization political religious affiliation', 'organization stateorprovince of headquarters', 'person other family', 'person city of death', 'organization subsidiaries', 'organization parents', 'organization alternate names', 'organization city of headquarters', 'person siblings', 'organization founded', 'person age', 'person city of birth', 'organization members', 'person religion'])
+CurrentTrain: epoch  0, batch     0 | loss: 28.6218461CurrentTrain: epoch  1, batch     0 | loss: 27.1545641CurrentTrain: epoch  2, batch     0 | loss: 26.5331527CurrentTrain: epoch  3, batch     0 | loss: 26.1753895CurrentTrain: epoch  4, batch     0 | loss: 25.6912489CurrentTrain: epoch  5, batch     0 | loss: 25.3902537CurrentTrain: epoch  6, batch     0 | loss: 25.0493700CurrentTrain: epoch  7, batch     0 | loss: 24.7832550CurrentTrain: epoch  8, batch     0 | loss: 24.7703143CurrentTrain: epoch  9, batch     0 | loss: 24.7993813
+MemoryTrain:  epoch  0, batch     0 | loss: 0.7701250MemoryTrain:  epoch  1, batch     0 | loss: 0.5471462MemoryTrain:  epoch  2, batch     0 | loss: 0.4709255MemoryTrain:  epoch  3, batch     0 | loss: 0.3806015MemoryTrain:  epoch  4, batch     0 | loss: 0.3319670MemoryTrain:  epoch  5, batch     0 | loss: 0.2967863MemoryTrain:  epoch  6, batch     0 | loss: 0.2557602MemoryTrain:  epoch  7, batch     0 | loss: 0.2236028MemoryTrain:  epoch  8, batch     0 | loss: 0.2101920MemoryTrain:  epoch  9, batch     0 | loss: 0.1769973
+Threshold: -20.866807656288422, Accuracy: 1.0
+Threshold1: 0.04679456323084205, Accuracy1: 1.0
+Threshold2: 0.011261963182025485, Accuracy2: 1.0
+
+F1 score per class: {0: np.float64(0.9428571428571428), 32: np.float64(0.0), 2: np.float64(0.0), 1: np.float64(0.9583333333333334), 4: np.float64(0.0), 38: np.float64(0.8888888888888888), 40: np.float64(0.0), 11: np.float64(0.4878048780487805), 13: np.float64(0.0), 15: np.float64(0.8674698795180723), 21: np.float64(0.0), 22: np.float64(0.0), 23: np.float64(0.0), 26: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0)}
+Micro-average F1 score: 0.7954545454545454
+Weighted-average F1 score: 0.7224703289983925
+F1 score per class: {0: np.float64(0.9722222222222222), 32: np.float64(0.0), 34: np.float64(0.0), 2: np.float64(0.93048128342246), 4: np.float64(0.0), 37: np.float64(0.75), 38: np.float64(0.6808510638297872), 1: np.float64(0.8674698795180723), 40: np.float64(0.0), 11: np.float64(0.0), 13: np.float64(0.0), 21: np.float64(0.0), 23: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0)}
+Micro-average F1 score: 0.8045454545454546
+Weighted-average F1 score: 0.7243281005429955
+F1 score per class: {0: np.float64(0.9722222222222222), 32: np.float64(0.0), 34: np.float64(0.0), 2: np.float64(0.93048128342246), 4: np.float64(0.0), 37: np.float64(0.75), 38: np.float64(0.6808510638297872), 1: np.float64(0.8571428571428571), 40: np.float64(0.0), 11: np.float64(0.0), 13: np.float64(0.0), 21: np.float64(0.0), 23: np.float64(0.0), 24: np.float64(0.0), 26: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0)}
+Micro-average F1 score: 0.8045454545454546
+Weighted-average F1 score: 0.7265343280504277
+
+F1 score per class: {0: np.float64(0.9166666666666666), 1: np.float64(0.3157894736842105), 2: np.float64(0.7368421052631579), 3: np.float64(0.6296296296296297), 4: np.float64(0.9583333333333334), 6: np.float64(0.6010928961748634), 7: np.float64(0.07692307692307693), 9: np.float64(0.9433962264150944), 11: np.float64(0.31724137931034485), 12: np.float64(0.7215189873417721), 13: np.float64(0.5), 14: np.float64(0.0), 15: np.float64(0.42857142857142855), 19: np.float64(0.7049808429118773), 21: np.float64(0.18691588785046728), 22: np.float64(0.6274509803921569), 23: np.float64(0.6923076923076923), 24: np.float64(0.0), 25: np.float64(0.8181818181818182), 26: np.float64(0.7150837988826816), 27: np.float64(0.05555555555555555), 28: np.float64(0.0), 29: np.float64(0.9128205128205128), 31: np.float64(0.5714285714285714), 32: np.float64(0.8173076923076923), 34: np.float64(0.4624277456647399), 35: np.float64(0.48598130841121495), 37: np.float64(0.425531914893617), 38: np.float64(0.676056338028169), 39: np.float64(0.23529411764705882), 40: np.float64(0.1875)}
+Micro-average F1 score: 0.6024767801857586
+Weighted-average F1 score: 0.607421077302137
+F1 score per class: {0: np.float64(0.958904109589041), 1: np.float64(0.36363636363636365), 2: np.float64(0.7619047619047619), 3: np.float64(0.5970149253731343), 4: np.float64(0.90625), 6: np.float64(0.0), 7: np.float64(0.11320754716981132), 9: np.float64(0.9285714285714286), 11: np.float64(0.3880597014925373), 12: np.float64(0.8135593220338984), 13: np.float64(0.4), 14: np.float64(0.0), 15: np.float64(0.75), 19: np.float64(0.7159533073929961), 21: np.float64(0.3106796116504854), 22: np.float64(0.569620253164557), 23: np.float64(0.6990291262135923), 24: np.float64(0.11764705882352941), 25: np.float64(0.8695652173913043), 26: np.float64(0.6951871657754011), 27: np.float64(0.14285714285714285), 28: np.float64(0.0), 29: np.float64(0.9447236180904522), 31: np.float64(0.6666666666666666), 32: np.float64(0.8611111111111112), 34: np.float64(0.4835164835164835), 35: np.float64(0.5954198473282443), 37: np.float64(0.37362637362637363), 38: np.float64(0.6857142857142857), 39: np.float64(0.23529411764705882), 40: np.float64(0.3076923076923077)}
+Micro-average F1 score: 0.6090822483328041
+Weighted-average F1 score: 0.6361825342886949
+F1 score per class: {0: np.float64(0.958904109589041), 1: np.float64(0.3357664233576642), 2: np.float64(0.7619047619047619), 3: np.float64(0.6029411764705882), 4: np.float64(0.9206349206349206), 6: np.float64(0.0), 7: np.float64(0.11320754716981132), 9: np.float64(0.9433962264150944), 11: np.float64(0.39416058394160586), 12: np.float64(0.7764705882352941), 13: np.float64(0.42857142857142855), 14: np.float64(0.0), 15: np.float64(0.7058823529411765), 19: np.float64(0.7153846153846154), 21: np.float64(0.27586206896551724), 22: np.float64(0.5802469135802469), 23: np.float64(0.6923076923076923), 24: np.float64(0.07407407407407407), 25: np.float64(0.8444444444444444), 26: np.float64(0.6989247311827957), 27: np.float64(0.13793103448275862), 28: np.float64(0.0), 29: np.float64(0.9353233830845771), 31: np.float64(0.6666666666666666), 32: np.float64(0.8450704225352113), 34: np.float64(0.4861878453038674), 35: np.float64(0.5909090909090909), 37: np.float64(0.37777777777777777), 38: np.float64(0.676056338028169), 39: np.float64(0.23529411764705882), 40: np.float64(0.30434782608695654)}
+Micro-average F1 score: 0.6024785510009533
+Weighted-average F1 score: 0.6275045828076041
+
+F1 score per class: {0: np.float64(0.4370860927152318), 1: np.float64(0.0), 2: np.float64(0.0), 3: np.float64(0.0), 4: np.float64(0.847926267281106), 6: np.float64(0.0), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 13: np.float64(0.11940298507462686), 14: np.float64(0.0), 15: np.float64(0.0), 19: np.float64(0.0), 21: np.float64(0.20408163265306123), 22: np.float64(0.0), 23: np.float64(0.5142857142857142), 24: np.float64(0.0), 25: np.float64(0.0), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 34: np.float64(0.0), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.18305439330543932
+Weighted-average F1 score: 0.12880627289147709
+F1 score per class: {0: np.float64(0.56), 1: np.float64(0.0), 2: np.float64(0.0), 3: np.float64(0.0), 4: np.float64(0.6373626373626373), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 13: np.float64(0.09836065573770492), 14: np.float64(0.0), 15: np.float64(0.0), 19: np.float64(0.0), 21: np.float64(0.3076923076923077), 22: np.float64(0.0), 23: np.float64(0.47058823529411764), 24: np.float64(0.0), 25: np.float64(0.0), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 34: np.float64(0.0), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.19820828667413215
+Weighted-average F1 score: 0.1515937575911639
+F1 score per class: {0: np.float64(0.5223880597014925), 1: np.float64(0.0), 2: np.float64(0.0), 3: np.float64(0.0), 4: np.float64(0.71900826446281), 7: np.float64(0.0), 9: np.float64(0.0), 11: np.float64(0.0), 12: np.float64(0.0), 13: np.float64(0.09375), 14: np.float64(0.0), 15: np.float64(0.0), 19: np.float64(0.0), 21: np.float64(0.29906542056074764), 22: np.float64(0.0), 23: np.float64(0.4472049689440994), 24: np.float64(0.0), 25: np.float64(0.0), 26: np.float64(0.0), 27: np.float64(0.0), 28: np.float64(0.0), 29: np.float64(0.0), 31: np.float64(0.0), 32: np.float64(0.0), 34: np.float64(0.0), 35: np.float64(0.0), 37: np.float64(0.0), 38: np.float64(0.0), 39: np.float64(0.0), 40: np.float64(0.0)}
+Micro-average F1 score: 0.19732441471571907
+Weighted-average F1 score: 0.1474030519485438
