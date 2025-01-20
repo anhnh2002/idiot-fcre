@@ -124,10 +124,10 @@ class data_sampler_CFRL(object):
             cur_na_training_data.extend(self.training_na_data[index])
 
             cur_valid_data[rel] = self.valid_data[index]
-            # cur_na_valid_data.extend(self.valid_na_data[index])
+            cur_na_valid_data.extend(self.valid_na_data[index])
 
             cur_test_data[rel] = self.test_data[index]
-            # cur_na_test_data.extend(self.test_na_data[index])
+            cur_na_test_data.extend(self.test_na_data[index])
 
             self.history_test_data[rel] = self.test_data[index]
             # fix_here 
@@ -135,15 +135,15 @@ class data_sampler_CFRL(object):
 
         if self.na_rel not in self.seen_relations:
             self.seen_relations.append(self.na_rel)
-            # self.history_test_data[self.na_rel] = cur_na_test_data
+            self.history_test_data[self.na_rel] = cur_na_test_data
             self.seen_descriptions[self.na_rel] = self.id2des[self.na_id]
-        # else:
-        #     self.history_test_data[self.na_rel] += cur_na_test_data
+        else:
+            self.history_test_data[self.na_rel] += cur_na_test_data
 
         current_relations.append(self.na_rel)
         cur_training_data[self.na_rel] = cur_na_training_data
-        # cur_valid_data[self.na_rel] = cur_na_valid_data
-        # cur_test_data[self.na_rel] = cur_na_test_data
+        cur_valid_data[self.na_rel] = cur_na_valid_data
+        cur_test_data[self.na_rel] = cur_na_test_data
         
         return cur_training_data, cur_valid_data, cur_test_data, current_relations,\
             self.history_test_data, self.seen_relations, self.seen_descriptions
