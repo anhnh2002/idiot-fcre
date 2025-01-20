@@ -390,15 +390,25 @@ class Manager(object):
         # encoder
         encoder = EncodingModel(self.config)
 
-        # step is continual task number
-        cur_acc, total_acc = [], []
-        cur_acc1, total_acc1 = [], []
-        cur_acc2, total_acc2 = [], []
+        # step is continual task number wo na
+        cur_acc_wo_na, total_acc_wo_na = [], []
+        cur_acc1_wo_na, total_acc1_wo_na = [], []
+        cur_acc2_wo_na, total_acc2_wo_na = [], []
 
 
-        cur_acc_num, total_acc_num = [], []
-        cur_acc_num1, total_acc_num1 = [], []
-        cur_acc_num2, total_acc_num2 = [], []
+        cur_acc_num_wo_na, total_acc_num_wo_na = [], []
+        cur_acc_num1_wo_na, total_acc_num1_wo_na = [], []
+        cur_acc_num2_wo_na, total_acc_num2_wo_na = [], []
+
+        # step is continual task number w na
+        cur_acc_w_na, total_acc_w_na = [], []
+        cur_acc1_w_na, total_acc1_w_na = [], []
+        cur_acc2_w_na, total_acc2_w_na = [], []
+
+
+        cur_acc_num_w_na, total_acc_num_w_na = [], []
+        cur_acc_num1_w_na, total_acc_num1_w_na = [], []
+        cur_acc_num2_w_na, total_acc_num2_w_na = [], []
 
 
         memory_samples = {}
@@ -486,45 +496,79 @@ class Manager(object):
                 rep_des.append(hidden)
             rep_des = torch.cat(rep_des, dim=0)
 
-            # Eval current task and history task
-            test_data_initialize_cur, test_data_initialize_seen = [], []
+            # Eval current task and history task wo na
+            test_data_initialize_cur_wo_na, test_data_initialize_seen_wo_na = [], []
             for rel in current_relations:
                 if rel != self.id2rel[self.config.na_id]:
-                    test_data_initialize_cur += test_data[rel]
+                    test_data_initialize_cur_wo_na += test_data[rel]
                 
             for rel in seen_relations:
                 if rel != self.id2rel[self.config.na_id]:
-                    test_data_initialize_seen += historic_test_data[rel]
+                    test_data_initialize_seen_wo_na += historic_test_data[rel]
             
-            ac1,ac1_des, ac1_rrf = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur,rep_des)
-            ac2,ac2_des, ac2_rrf = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen,rep_des)
+            ac1_wo_na, ac1_des_wo_na, ac1_rrf_wo_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur_wo_na,rep_des)
+            ac2_wo_na, ac2_des_wo_na, ac2_rrf_wo_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen_wo_na,rep_des)
+
+            # Eval current task and history task w na
+            test_data_initialize_cur_w_na, test_data_initialize_seen_w_na = [], []
+            for rel in current_relations:
+                test_data_initialize_cur_w_na += test_data[rel]
+                
+            for rel in seen_relations:
+                test_data_initialize_seen_w_na += historic_test_data[rel]
             
-            cur_acc_num.append(ac1)
-            total_acc_num.append(ac2)
-            cur_acc.append('{:.4f}'.format(ac1))
-            total_acc.append('{:.4f}'.format(ac2))
-            print('cur_acc: ', cur_acc)
-            print('his_acc: ', total_acc)
+            ac1_w_na, ac1_des_w_na, ac1_rrf_w_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_cur_w_na,rep_des)
+            ac2_w_na, ac2_des_w_na, ac2_rrf_w_na = self.eval_encoder_proto_des(encoder,seen_proto,seen_relid,test_data_initialize_seen_w_na,rep_des)
+            
+            # wo na
+            cur_acc_num_wo_na.append(ac1_wo_na)
+            total_acc_num_wo_na.append(ac2_wo_na)
+            cur_acc_wo_na.append('{:.4f}'.format(ac1_wo_na))
+            total_acc_wo_na.append('{:.4f}'.format(ac2_wo_na))
+            print('cur_acc_wo_na: ', cur_acc_wo_na)
+            print('his_acc_wo_na: ', total_acc_wo_na)
 
-            cur_acc_num1.append(ac1_des)
-            total_acc_num1.append(ac2_des)
-            cur_acc1.append('{:.4f}'.format(ac1_des))
-            total_acc1.append('{:.4f}'.format(ac2_des))
-            print('cur_acc des: ', cur_acc1)
-            print('his_acc des: ', total_acc1)
+            cur_acc_num1_wo_na.append(ac1_des_wo_na)
+            total_acc_num1_wo_na.append(ac2_des_wo_na)
+            cur_acc1_wo_na.append('{:.4f}'.format(ac1_des_wo_na))
+            total_acc1_wo_na.append('{:.4f}'.format(ac2_des_wo_na))
+            print('cur_acc des_wo_na: ', cur_acc1_wo_na)
+            print('his_acc des_wo_na: ', total_acc1_wo_na)
 
-            cur_acc_num2.append(ac1_rrf)
-            total_acc_num2.append(ac2_rrf)
-            cur_acc2.append('{:.4f}'.format(ac1_rrf))
-            total_acc2.append('{:.4f}'.format(ac2_rrf))
-            print('cur_acc rrf: ', cur_acc2)
-            print('his_acc rrf: ', total_acc2)
+            cur_acc_num2_wo_na.append(ac1_rrf_wo_na)
+            total_acc_num2_wo_na.append(ac2_rrf_wo_na)
+            cur_acc2_wo_na.append('{:.4f}'.format(ac1_rrf_wo_na))
+            total_acc2_wo_na.append('{:.4f}'.format(ac2_rrf_wo_na))
+            print('cur_acc rrf_wo_na: ', cur_acc2_wo_na)
+            print('his_acc rrf_wo_na: ', total_acc2_wo_na)
+
+            # w na
+            cur_acc_num_w_na.append(ac1_w_na)
+            total_acc_num_w_na.append(ac2_w_na)
+            cur_acc_w_na.append('{:.4f}'.format(ac1_w_na))
+            total_acc_w_na.append('{:.4f}'.format(ac2_w_na))
+            print('cur_acc_w_na: ', cur_acc_w_na)
+            print('his_acc_w_na: ', total_acc_w_na)
+
+            cur_acc_num1_w_na.append(ac1_des_w_na)
+            total_acc_num1_w_na.append(ac2_des_w_na)
+            cur_acc1_w_na.append('{:.4f}'.format(ac1_des_w_na))
+            total_acc1_w_na.append('{:.4f}'.format(ac2_des_w_na))
+            print('cur_acc des_w_na: ', cur_acc1_w_na)
+            print('his_acc des_w_na: ', total_acc1_w_na)
+
+            cur_acc_num2_w_na.append(ac1_rrf_w_na)
+            total_acc_num2_w_na.append(ac2_rrf_w_na)
+            cur_acc2_w_na.append('{:.4f}'.format(ac1_rrf_w_na))
+            total_acc2_w_na.append('{:.4f}'.format(ac2_rrf_w_na))
+            print('cur_acc rrf_w_na: ', cur_acc2_w_na)
+            print('his_acc rrf_w_na: ', total_acc2_w_na)
 
 
         torch.cuda.empty_cache()
         # save model
         # torch.save(encoder.state_dict(), "./checkpoints/encoder.pth")
-        return total_acc_num, total_acc_num1, total_acc_num2
+        return (total_acc_num_wo_na, total_acc_num1_wo_na, total_acc_num2_wo_na), (total_acc_num_w_na, total_acc_num1_w_na, total_acc_num2_w_na)
 
 
 if __name__ == '__main__':
@@ -588,28 +632,55 @@ if __name__ == '__main__':
     torch.cuda.manual_seed_all(config.seed)   
     base_seed = config.seed
 
-    acc_list = []
-    acc_list1 = []
-    aac_list2 = []
+    # wo na
+    acc_list_wo_na = []
+    acc_list1_wo_na = []
+    aac_list2_wo_na = []
+
+    # w na
+    acc_list_w_na = []
+    acc_list1_w_na = []
+    aac_list2_w_na = []
+
     for i in range(config.total_round):
         config.seed = base_seed + i * 100
         print('--------Round ', i)
         print('seed: ', config.seed)
         manager = Manager(config)
-        acc, acc1, aac2 = manager.train()
-        acc_list.append(acc)
-        acc_list1.append(acc1)
-        aac_list2.append(aac2)
+        (acc_wo_na, acc1_wo_na, aac2_wo_na), (acc_w_na, acc1_w_na, aac2_w_na) = manager.train()
+        
+        # wo na
+        acc_list_wo_na.append(acc_wo_na)
+        acc_list1_wo_na.append(acc1_wo_na)
+        aac_list2_wo_na.append(aac2_wo_na)
+
+        # w na
+        acc_list_w_na.append(acc_w_na)
+        acc_list1_w_na.append(acc1_w_na)
+        aac_list2_w_na.append(aac2_w_na)
+
         torch.cuda.empty_cache()
     
-    accs = np.array(acc_list)
-    ave = np.mean(accs, axis=0)
+    # wo na
+    accs_wo_na = np.array(acc_list_wo_na)
+    ave_wo_na = np.mean(accs_wo_na, axis=0)
     print('----------END')
-    print('his_acc mean: ', np.around(ave, 4))
-    accs1 = np.array(acc_list1)
-    ave1 = np.mean(accs1, axis=0)
-    print('his_acc des mean: ', np.around(ave1, 4))
-    accs2 = np.array(aac_list2)
-    ave2 = np.mean(accs2, axis=0)
-    print('his_acc rrf mean: ', np.around(ave2, 4))
+    print('his_acc mean_wo_na: ', np.around(ave_wo_na, 4))
+    accs1_wo_na = np.array(acc_list1_wo_na)
+    ave1_wo_na = np.mean(accs1_wo_na, axis=0)
+    print('his_acc des mean_wo_na: ', np.around(ave1_wo_na, 4))
+    accs2_wo_na = np.array(aac_list2_wo_na)
+    ave2_wo_na = np.mean(accs2_wo_na, axis=0)
+    print('his_acc rrf mean_wo_na: ', np.around(ave2_wo_na, 4))
+
+    # w na
+    accs_w_na = np.array(acc_list_w_na)
+    ave_w_na = np.mean(accs_w_na, axis=0)
+    print('his_acc mean_w_na: ', np.around(ave_w_na, 4))
+    accs1_w_na = np.array(acc_list1_w_na)
+    ave1_w_na = np.mean(accs1_w_na, axis=0)
+    print('his_acc des mean_w_na: ', np.around(ave1_w_na, 4))
+    accs2_w_na = np.array(aac_list2_w_na)
+    ave2_w_na = np.mean(accs2_w_na, axis=0)
+    print('his_acc rrf mean_w_na: ', np.around(ave2_w_na, 4))
     

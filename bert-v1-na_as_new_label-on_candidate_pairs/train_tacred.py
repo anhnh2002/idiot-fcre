@@ -177,32 +177,32 @@ class Manager(object):
                 loss3 = torch.stack(loss3).mean()
 
                 # compute hard margin constrastive loss for relation description: rd vs hidden
-                hard_margin_loss_1 = HardMarginLoss()
-                loss3_1 = []
-                for idx in range(len(labels)):
-                    rep_rd = rd[idx]
-                    label_for_loss = labels == labels[idx]
-                    loss3_1.append(hard_margin_loss_1(rep_rd, hidden, label_for_loss))
-                loss3_1 = torch.stack(loss3_1).mean()
+                # hard_margin_loss_1 = HardMarginLoss()
+                # loss3_1 = []
+                # for idx in range(len(labels)):
+                #     rep_rd = rd[idx]
+                #     label_for_loss = labels == labels[idx]
+                #     loss3_1.append(hard_margin_loss_1(rep_rd, hidden, label_for_loss))
+                # loss3_1 = torch.stack(loss3_1).mean()
 
                 # compute hard margin constrastive loss for relation description: rd vs labels_des
-                hard_margin_loss_2 = HardMarginLoss()
-                loss3_2 = []
-                for idx in range(len(labels)):
-                    rep_des = labels_des[idx]
-                    label_for_loss = labels == labels[idx]
-                    loss3_2.append(hard_margin_loss_2(rep_des, rd, label_for_loss))
-                loss3_2 = torch.stack(loss3_2).mean()
+                # hard_margin_loss_2 = HardMarginLoss()
+                # loss3_2 = []
+                # for idx in range(len(labels)):
+                #     rep_des = labels_des[idx]
+                #     label_for_loss = labels == labels[idx]
+                #     loss3_2.append(hard_margin_loss_2(rep_des, rd, label_for_loss))
+                # loss3_2 = torch.stack(loss3_2).mean()
 
 
                 loss_retrieval = MutualInformationLoss(weights=label_weights)
                 loss2 = loss_retrieval(hidden, labels_des, new_matrix_labels_tensor)
 
-                loss_retrieval_1 = MutualInformationLoss()
-                loss2_1 = loss_retrieval_1(hidden, rd, new_matrix_labels_tensor)
+                # loss_retrieval_1 = MutualInformationLoss()
+                # loss2_1 = loss_retrieval_1(hidden, rd, new_matrix_labels_tensor)
 
-                loss_retrieval_2 = MutualInformationLoss()
-                loss2_2 = loss_retrieval_2(rd, labels_des, new_matrix_labels_tensor)
+                # loss_retrieval_2 = MutualInformationLoss()
+                # loss2_2 = loss_retrieval_2(rd, labels_des, new_matrix_labels_tensor)
 
 
                 # compute soft margin triplet loss
@@ -214,8 +214,8 @@ class Manager(object):
 
                 # print(f"loss1: {loss1}, loss2: {loss2}, loss3: {loss3}, loss4: {loss4}")
 
-                # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
-                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 0.5*loss4 + 0.5*loss3_1 + 0.5*loss3_2 + 0.5*loss2_1 + 0.5*loss2_2
+                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
+                # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 0.5*loss4 + 0.5*loss3_1 + 0.5*loss3_2 + 0.5*loss2_1 + 0.5*loss2_2
             
                 
                 optimizer.zero_grad()
