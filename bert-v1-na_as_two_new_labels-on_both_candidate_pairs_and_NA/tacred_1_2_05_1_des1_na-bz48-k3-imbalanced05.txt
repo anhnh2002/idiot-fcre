@@ -1,0 +1,195 @@
+#############params############
+cuda
+Task=Tacred, 5-shot
+Encoding model: bert
+pattern=hybridprompt
+mem=1, margin=0.3, gen=0, gen_num=2
+#############params############
+--------Round  0
+seed:  100
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/train.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/valid.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/test.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/na_train.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/na_valid.pkl
+data/CFRLTacred/CFRLdata_6_100_5_5/_process_BERT_hybridprompt_12token/na_test.pkl
+Task_order: [7 3 0 5 4 1 6 2]
+prepared data!
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'NA or unknown'])
+Labels: [ 6  6  6 ... 41 41 41]
+Length Labels: 4602
+self.majority_label: 41
+self.majority_ratio: 0.5
+Length self.majority_indices: 4002
+Length self.minority_indices: 600
+CurrentTrain: epoch  0, batch     0 | loss: 60.4695123CurrentTrain: epoch  0, batch     1 | loss: 59.3081237CurrentTrain: epoch  0, batch     2 | loss: 58.2329300CurrentTrain: epoch  0, batch     3 | loss: 57.5962705CurrentTrain: epoch  0, batch     4 | loss: 57.5520370CurrentTrain: epoch  0, batch     5 | loss: 57.5916195CurrentTrain: epoch  0, batch     6 | loss: 56.7412733CurrentTrain: epoch  0, batch     7 | loss: 56.2438166CurrentTrain: epoch  0, batch     8 | loss: 56.5488840CurrentTrain: epoch  0, batch     9 | loss: 56.9693776CurrentTrain: epoch  0, batch    10 | loss: 56.5553922CurrentTrain: epoch  0, batch    11 | loss: 54.8578327CurrentTrain: epoch  0, batch    12 | loss: 55.4093066CurrentTrain: epoch  0, batch    13 | loss: 64.9047631CurrentTrain: epoch  0, batch    14 | loss: 54.6990900CurrentTrain: epoch  0, batch    15 | loss: 56.4445747CurrentTrain: epoch  0, batch    16 | loss: 54.5377970CurrentTrain: epoch  0, batch    17 | loss: 53.7747208CurrentTrain: epoch  0, batch    18 | loss: 52.7874524CurrentTrain: epoch  0, batch    19 | loss: 53.2374194CurrentTrain: epoch  0, batch    20 | loss: 53.1739546CurrentTrain: epoch  0, batch    21 | loss: 53.1613783CurrentTrain: epoch  0, batch    22 | loss: 53.0930266CurrentTrain: epoch  0, batch    23 | loss: 53.4459003CurrentTrain: epoch  0, batch    24 | loss: 61.5944426CurrentTrain: epoch  1, batch     0 | loss: 51.3839085CurrentTrain: epoch  1, batch     1 | loss: 50.8960756CurrentTrain: epoch  1, batch     2 | loss: 50.6268464CurrentTrain: epoch  1, batch     3 | loss: 52.6610902CurrentTrain: epoch  1, batch     4 | loss: 50.0339802CurrentTrain: epoch  1, batch     5 | loss: 48.7470513CurrentTrain: epoch  1, batch     6 | loss: 49.0845910CurrentTrain: epoch  1, batch     7 | loss: 51.0345271CurrentTrain: epoch  1, batch     8 | loss: 48.7498682CurrentTrain: epoch  1, batch     9 | loss: 51.7518865CurrentTrain: epoch  1, batch    10 | loss: 46.9940204CurrentTrain: epoch  1, batch    11 | loss: 47.4166329CurrentTrain: epoch  1, batch    12 | loss: 48.8158326CurrentTrain: epoch  1, batch    13 | loss: 47.6279426CurrentTrain: epoch  1, batch    14 | loss: 47.8458248CurrentTrain: epoch  1, batch    15 | loss: 45.8400443CurrentTrain: epoch  1, batch    16 | loss: 46.2908818CurrentTrain: epoch  1, batch    17 | loss: 48.3641219CurrentTrain: epoch  1, batch    18 | loss: 46.4593703CurrentTrain: epoch  1, batch    19 | loss: 44.7158018CurrentTrain: epoch  1, batch    20 | loss: 46.1237100CurrentTrain: epoch  1, batch    21 | loss: 45.5154130CurrentTrain: epoch  1, batch    22 | loss: 47.0558758CurrentTrain: epoch  1, batch    23 | loss: 45.4376335CurrentTrain: epoch  1, batch    24 | loss: 44.8646012CurrentTrain: epoch  2, batch     0 | loss: 44.3895179CurrentTrain: epoch  2, batch     1 | loss: 51.9689423CurrentTrain: epoch  2, batch     2 | loss: 42.4768318CurrentTrain: epoch  2, batch     3 | loss: 45.2344155CurrentTrain: epoch  2, batch     4 | loss: 44.4740741CurrentTrain: epoch  2, batch     5 | loss: 45.3600688CurrentTrain: epoch  2, batch     6 | loss: 50.2553983CurrentTrain: epoch  2, batch     7 | loss: 42.6392064CurrentTrain: epoch  2, batch     8 | loss: 42.4267678CurrentTrain: epoch  2, batch     9 | loss: 43.3260712CurrentTrain: epoch  2, batch    10 | loss: 41.4584984CurrentTrain: epoch  2, batch    11 | loss: 43.9156001CurrentTrain: epoch  2, batch    12 | loss: 42.8997794CurrentTrain: epoch  2, batch    13 | loss: 45.5377095CurrentTrain: epoch  2, batch    14 | loss: 42.0838879CurrentTrain: epoch  2, batch    15 | loss: 40.7452467CurrentTrain: epoch  2, batch    16 | loss: 42.4797873CurrentTrain: epoch  2, batch    17 | loss: 43.3471191CurrentTrain: epoch  2, batch    18 | loss: 43.4662974CurrentTrain: epoch  2, batch    19 | loss: 41.6234386CurrentTrain: epoch  2, batch    20 | loss: 41.8510137CurrentTrain: epoch  2, batch    21 | loss: 43.7072687CurrentTrain: epoch  2, batch    22 | loss: 41.7253492CurrentTrain: epoch  2, batch    23 | loss: 40.2545092CurrentTrain: epoch  2, batch    24 | loss: 40.1396154CurrentTrain: epoch  3, batch     0 | loss: 40.1789567CurrentTrain: epoch  3, batch     1 | loss: 39.6426561CurrentTrain: epoch  3, batch     2 | loss: 40.5514254CurrentTrain: epoch  3, batch     3 | loss: 39.1293202CurrentTrain: epoch  3, batch     4 | loss: 42.6264447CurrentTrain: epoch  3, batch     5 | loss: 42.6698120CurrentTrain: epoch  3, batch     6 | loss: 39.1069997CurrentTrain: epoch  3, batch     7 | loss: 39.8185960CurrentTrain: epoch  3, batch     8 | loss: 39.7046375CurrentTrain: epoch  3, batch     9 | loss: 39.5181499CurrentTrain: epoch  3, batch    10 | loss: 41.7672696CurrentTrain: epoch  3, batch    11 | loss: 39.3655913CurrentTrain: epoch  3, batch    12 | loss: 39.1852598CurrentTrain: epoch  3, batch    13 | loss: 39.7556420CurrentTrain: epoch  3, batch    14 | loss: 41.8057349CurrentTrain: epoch  3, batch    15 | loss: 38.4456194CurrentTrain: epoch  3, batch    16 | loss: 39.0110397CurrentTrain: epoch  3, batch    17 | loss: 39.2737932CurrentTrain: epoch  3, batch    18 | loss: 43.0942210CurrentTrain: epoch  3, batch    19 | loss: 39.6076155CurrentTrain: epoch  3, batch    20 | loss: 42.3461168CurrentTrain: epoch  3, batch    21 | loss: 42.9602192CurrentTrain: epoch  3, batch    22 | loss: 40.1369664CurrentTrain: epoch  3, batch    23 | loss: 43.1671537CurrentTrain: epoch  3, batch    24 | loss: 41.1075484CurrentTrain: epoch  4, batch     0 | loss: 47.3168746CurrentTrain: epoch  4, batch     1 | loss: 39.3737924CurrentTrain: epoch  4, batch     2 | loss: 37.7514923CurrentTrain: epoch  4, batch     3 | loss: 40.9164057CurrentTrain: epoch  4, batch     4 | loss: 40.5228337CurrentTrain: epoch  4, batch     5 | loss: 38.6833582CurrentTrain: epoch  4, batch     6 | loss: 37.6094363CurrentTrain: epoch  4, batch     7 | loss: 40.1774712CurrentTrain: epoch  4, batch     8 | loss: 38.6496754CurrentTrain: epoch  4, batch     9 | loss: 37.8998115CurrentTrain: epoch  4, batch    10 | loss: 42.8102779CurrentTrain: epoch  4, batch    11 | loss: 37.4113548CurrentTrain: epoch  4, batch    12 | loss: 38.8637744CurrentTrain: epoch  4, batch    13 | loss: 39.0291144CurrentTrain: epoch  4, batch    14 | loss: 49.9041588CurrentTrain: epoch  4, batch    15 | loss: 39.1381232CurrentTrain: epoch  4, batch    16 | loss: 38.3273801CurrentTrain: epoch  4, batch    17 | loss: 40.1329039CurrentTrain: epoch  4, batch    18 | loss: 47.4888522CurrentTrain: epoch  4, batch    19 | loss: 47.2136388CurrentTrain: epoch  4, batch    20 | loss: 44.0875348CurrentTrain: epoch  4, batch    21 | loss: 36.8449465CurrentTrain: epoch  4, batch    22 | loss: 40.1949782CurrentTrain: epoch  4, batch    23 | loss: 37.2089365CurrentTrain: epoch  4, batch    24 | loss: 39.0199789CurrentTrain: epoch  5, batch     0 | loss: 39.2642744CurrentTrain: epoch  5, batch     1 | loss: 39.6562013CurrentTrain: epoch  5, batch     2 | loss: 36.9291236CurrentTrain: epoch  5, batch     3 | loss: 39.9700551CurrentTrain: epoch  5, batch     4 | loss: 38.7262509CurrentTrain: epoch  5, batch     5 | loss: 45.5271002CurrentTrain: epoch  5, batch     6 | loss: 38.8081967CurrentTrain: epoch  5, batch     7 | loss: 36.4148792CurrentTrain: epoch  5, batch     8 | loss: 42.9486361CurrentTrain: epoch  5, batch     9 | loss: 38.9910226CurrentTrain: epoch  5, batch    10 | loss: 36.8016572CurrentTrain: epoch  5, batch    11 | loss: 39.0515950CurrentTrain: epoch  5, batch    12 | loss: 37.8821725CurrentTrain: epoch  5, batch    13 | loss: 42.9232636CurrentTrain: epoch  5, batch    14 | loss: 37.5196201CurrentTrain: epoch  5, batch    15 | loss: 38.0718400CurrentTrain: epoch  5, batch    16 | loss: 36.5455030CurrentTrain: epoch  5, batch    17 | loss: 38.9254518CurrentTrain: epoch  5, batch    18 | loss: 38.3049673CurrentTrain: epoch  5, batch    19 | loss: 43.5971286CurrentTrain: epoch  5, batch    20 | loss: 40.1151499CurrentTrain: epoch  5, batch    21 | loss: 39.1031978CurrentTrain: epoch  5, batch    22 | loss: 35.9209279CurrentTrain: epoch  5, batch    23 | loss: 40.3313491CurrentTrain: epoch  5, batch    24 | loss: 39.6475375CurrentTrain: epoch  6, batch     0 | loss: 36.5786789CurrentTrain: epoch  6, batch     1 | loss: 39.0441217CurrentTrain: epoch  6, batch     2 | loss: 37.8442767CurrentTrain: epoch  6, batch     3 | loss: 42.9344003CurrentTrain: epoch  6, batch     4 | loss: 39.9874722CurrentTrain: epoch  6, batch     5 | loss: 38.1341210CurrentTrain: epoch  6, batch     6 | loss: 38.7317443CurrentTrain: epoch  6, batch     7 | loss: 38.2414037CurrentTrain: epoch  6, batch     8 | loss: 38.2432344CurrentTrain: epoch  6, batch     9 | loss: 36.6609237CurrentTrain: epoch  6, batch    10 | loss: 39.5255204CurrentTrain: epoch  6, batch    11 | loss: 37.2681716CurrentTrain: epoch  6, batch    12 | loss: 40.5845933CurrentTrain: epoch  6, batch    13 | loss: 37.8959961CurrentTrain: epoch  6, batch    14 | loss: 38.5720123CurrentTrain: epoch  6, batch    15 | loss: 37.0882698CurrentTrain: epoch  6, batch    16 | loss: 38.2673152CurrentTrain: epoch  6, batch    17 | loss: 39.5178832CurrentTrain: epoch  6, batch    18 | loss: 38.4796262CurrentTrain: epoch  6, batch    19 | loss: 43.7131207CurrentTrain: epoch  6, batch    20 | loss: 36.8364292CurrentTrain: epoch  6, batch    21 | loss: 46.3464131CurrentTrain: epoch  6, batch    22 | loss: 38.6486704CurrentTrain: epoch  6, batch    23 | loss: 39.4248151CurrentTrain: epoch  6, batch    24 | loss: 40.8853654CurrentTrain: epoch  7, batch     0 | loss: 39.9127702CurrentTrain: epoch  7, batch     1 | loss: 38.0429432CurrentTrain: epoch  7, batch     2 | loss: 37.9687552CurrentTrain: epoch  7, batch     3 | loss: 37.1600587CurrentTrain: epoch  7, batch     4 | loss: 35.7811897CurrentTrain: epoch  7, batch     5 | loss: 37.4632108CurrentTrain: epoch  7, batch     6 | loss: 37.2004041CurrentTrain: epoch  7, batch     7 | loss: 37.9184383CurrentTrain: epoch  7, batch     8 | loss: 36.3963925CurrentTrain: epoch  7, batch     9 | loss: 36.1109581CurrentTrain: epoch  7, batch    10 | loss: 35.8076159CurrentTrain: epoch  7, batch    11 | loss: 38.3901859CurrentTrain: epoch  7, batch    12 | loss: 36.8095905CurrentTrain: epoch  7, batch    13 | loss: 36.1777039CurrentTrain: epoch  7, batch    14 | loss: 36.7022943CurrentTrain: epoch  7, batch    15 | loss: 39.2978239CurrentTrain: epoch  7, batch    16 | loss: 36.7284531CurrentTrain: epoch  7, batch    17 | loss: 40.7526724CurrentTrain: epoch  7, batch    18 | loss: 37.6230243CurrentTrain: epoch  7, batch    19 | loss: 35.4971675CurrentTrain: epoch  7, batch    20 | loss: 37.3691402CurrentTrain: epoch  7, batch    21 | loss: 36.3119236CurrentTrain: epoch  7, batch    22 | loss: 41.2292988CurrentTrain: epoch  7, batch    23 | loss: 36.7107522CurrentTrain: epoch  7, batch    24 | loss: 36.1666506CurrentTrain: epoch  8, batch     0 | loss: 37.6740821CurrentTrain: epoch  8, batch     1 | loss: 34.7863997CurrentTrain: epoch  8, batch     2 | loss: 40.3277002CurrentTrain: epoch  8, batch     3 | loss: 36.0443917CurrentTrain: epoch  8, batch     4 | loss: 35.7588514CurrentTrain: epoch  8, batch     5 | loss: 37.7319144CurrentTrain: epoch  8, batch     6 | loss: 37.8497304CurrentTrain: epoch  8, batch     7 | loss: 38.3077048CurrentTrain: epoch  8, batch     8 | loss: 36.0881755CurrentTrain: epoch  8, batch     9 | loss: 36.0245035CurrentTrain: epoch  8, batch    10 | loss: 36.2274555CurrentTrain: epoch  8, batch    11 | loss: 37.3917839CurrentTrain: epoch  8, batch    12 | loss: 36.9621188CurrentTrain: epoch  8, batch    13 | loss: 36.0058557CurrentTrain: epoch  8, batch    14 | loss: 38.2967446CurrentTrain: epoch  8, batch    15 | loss: 36.0652546CurrentTrain: epoch  8, batch    16 | loss: 36.2874522CurrentTrain: epoch  8, batch    17 | loss: 37.5594190CurrentTrain: epoch  8, batch    18 | loss: 37.4771755CurrentTrain: epoch  8, batch    19 | loss: 36.7894231CurrentTrain: epoch  8, batch    20 | loss: 34.5102475CurrentTrain: epoch  8, batch    21 | loss: 35.4514900CurrentTrain: epoch  8, batch    22 | loss: 34.7155870CurrentTrain: epoch  8, batch    23 | loss: 38.2506247CurrentTrain: epoch  8, batch    24 | loss: 37.2273325CurrentTrain: epoch  9, batch     0 | loss: 36.5028952CurrentTrain: epoch  9, batch     1 | loss: 35.2635286CurrentTrain: epoch  9, batch     2 | loss: 37.8274020CurrentTrain: epoch  9, batch     3 | loss: 37.5375873CurrentTrain: epoch  9, batch     4 | loss: 37.8291510CurrentTrain: epoch  9, batch     5 | loss: 34.0717373CurrentTrain: epoch  9, batch     6 | loss: 37.3929813CurrentTrain: epoch  9, batch     7 | loss: 38.1905175CurrentTrain: epoch  9, batch     8 | loss: 36.6153578CurrentTrain: epoch  9, batch     9 | loss: 36.1790747CurrentTrain: epoch  9, batch    10 | loss: 40.0436576CurrentTrain: epoch  9, batch    11 | loss: 36.5937823CurrentTrain: epoch  9, batch    12 | loss: 36.0253350CurrentTrain: epoch  9, batch    13 | loss: 36.4342059CurrentTrain: epoch  9, batch    14 | loss: 37.3754229CurrentTrain: epoch  9, batch    15 | loss: 37.6837964CurrentTrain: epoch  9, batch    16 | loss: 34.6363191CurrentTrain: epoch  9, batch    17 | loss: 34.5150087CurrentTrain: epoch  9, batch    18 | loss: 36.7501219CurrentTrain: epoch  9, batch    19 | loss: 34.8543103CurrentTrain: epoch  9, batch    20 | loss: 35.4767824CurrentTrain: epoch  9, batch    21 | loss: 34.4606055CurrentTrain: epoch  9, batch    22 | loss: 34.5289167CurrentTrain: epoch  9, batch    23 | loss: 36.3523215CurrentTrain: epoch  9, batch    24 | loss: 37.5906153
+
+F1 score per class: {32: 0.48338368580060426, 6: 0.6112956810631229, 19: 0.21153846153846154, 24: 0.7106598984771574, 26: 0.8867924528301887, 29: 0.6762589928057554}
+Micro-average F1 score: 0.6198172874209417
+Weighted-average F1 score: 0.5981803719277623
+F1 score per class: {32: 0.4632768361581921, 6: 0.6133333333333333, 19: 0.11428571428571428, 24: 0.6698564593301436, 26: 0.8558558558558559, 29: 0.6382978723404256}
+Micro-average F1 score: 0.559289790741915
+Weighted-average F1 score: 0.5249110684051578
+F1 score per class: {32: 0.4619718309859155, 6: 0.6133333333333333, 19: 0.12631578947368421, 24: 0.6829268292682927, 26: 0.8558558558558559, 29: 0.6206896551724138}
+Micro-average F1 score: 0.5646606914212549
+Weighted-average F1 score: 0.5328051392029622
+
+F1 score per class: {32: 0.48338368580060426, 6: 0.6112956810631229, 19: 0.21153846153846154, 24: 0.7106598984771574, 26: 0.8867924528301887, 29: 0.6762589928057554}
+Micro-average F1 score: 0.6198172874209417
+Weighted-average F1 score: 0.5981803719277623
+F1 score per class: {32: 0.4632768361581921, 6: 0.6133333333333333, 19: 0.11428571428571428, 24: 0.6698564593301436, 26: 0.8558558558558559, 29: 0.6382978723404256}
+Micro-average F1 score: 0.559289790741915
+Weighted-average F1 score: 0.5249110684051578
+F1 score per class: {32: 0.4619718309859155, 6: 0.6133333333333333, 19: 0.12631578947368421, 24: 0.6829268292682927, 26: 0.8558558558558559, 29: 0.6206896551724138}
+Micro-average F1 score: 0.5646606914212549
+Weighted-average F1 score: 0.5328051392029622
+cur_acc:  ['0.6198']
+his_acc:  ['0.6198']
+cur_acc des:  ['0.5593']
+his_acc des:  ['0.5593']
+cur_acc rrf:  ['0.5647']
+his_acc rrf:  ['0.5647']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'NA or unknown', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death'])
+Labels: [ 2  2  2  2  2 28 28 28 28 28 11 11 11 11 11 12 12 12 12 12 39 39 39 39
+ 39 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41]
+Length Labels: 204
+self.majority_label: 41
+self.majority_ratio: 0.5
+Length self.majority_indices: 179
+Length self.minority_indices: 25
+CurrentTrain: epoch  0, batch     0 | loss: 64.7193073CurrentTrain: epoch  0, batch     1 | loss: 85.5890087CurrentTrain: epoch  1, batch     0 | loss: 57.1254872CurrentTrain: epoch  1, batch     1 | loss: 82.5719850CurrentTrain: epoch  2, batch     0 | loss: 55.0718083CurrentTrain: epoch  2, batch     1 | loss: 83.2143053CurrentTrain: epoch  3, batch     0 | loss: 57.1320147CurrentTrain: epoch  3, batch     1 | loss: 78.1711228CurrentTrain: epoch  4, batch     0 | loss: 53.9015496CurrentTrain: epoch  4, batch     1 | loss: 79.5801048CurrentTrain: epoch  5, batch     0 | loss: 51.1777328CurrentTrain: epoch  5, batch     1 | loss: 79.6640593CurrentTrain: epoch  6, batch     0 | loss: 48.7109067CurrentTrain: epoch  6, batch     1 | loss: 80.3840189CurrentTrain: epoch  7, batch     0 | loss: 48.4896654CurrentTrain: epoch  7, batch     1 | loss: 81.0357449CurrentTrain: epoch  8, batch     0 | loss: 47.4944980CurrentTrain: epoch  8, batch     1 | loss: 79.0974517CurrentTrain: epoch  9, batch     0 | loss: 47.1149012CurrentTrain: epoch  9, batch     1 | loss: 79.1441544
+MemoryTrain:  epoch  0, batch     0 | loss: 0.6087164MemoryTrain:  epoch  1, batch     0 | loss: 0.6174653MemoryTrain:  epoch  2, batch     0 | loss: 0.3858866MemoryTrain:  epoch  3, batch     0 | loss: 0.2935694MemoryTrain:  epoch  4, batch     0 | loss: 0.2384878MemoryTrain:  epoch  5, batch     0 | loss: 0.1730856MemoryTrain:  epoch  6, batch     0 | loss: 0.1463036MemoryTrain:  epoch  7, batch     0 | loss: 0.1250281MemoryTrain:  epoch  8, batch     0 | loss: 0.1299799MemoryTrain:  epoch  9, batch     0 | loss: 0.0778048
+
+F1 score per class: {32: 0.2909090909090909, 2: 0.0, 6: 0.445993031358885, 39: 0.5324232081911263, 11: 0.0, 12: 0.0, 19: 0.0, 24: 0.1875, 26: 0.0, 28: 0.0, 29: 0.05}
+Micro-average F1 score: 0.343921139101862
+Weighted-average F1 score: 0.31223647060968834
+F1 score per class: {32: 0.16161616161616163, 2: 0.0, 6: 0.3827751196172249, 39: 0.5675675675675675, 11: 0.0, 12: 0.0, 19: 0.0, 24: 0.08823529411764706, 26: 0.0, 28: 0.0, 29: 0.1728395061728395}
+Micro-average F1 score: 0.29959514170040485
+Weighted-average F1 score: 0.2706484762037609
+F1 score per class: {32: 0.16326530612244897, 2: 0.0, 6: 0.38369304556354916, 39: 0.5666666666666667, 11: 0.0, 12: 0.0, 19: 0.0, 24: 0.08955223880597014, 26: 0.0, 28: 0.0, 29: 0.1875}
+Micro-average F1 score: 0.3042763157894737
+Weighted-average F1 score: 0.2755842925357986
+
+F1 score per class: {32: 0.21052631578947367, 2: 0.41160949868073876, 6: 0.34688346883468835, 39: 0.2741652021089631, 11: 0.5352112676056338, 12: 0.17266187050359713, 19: 0.693069306930693, 24: 0.1348314606741573, 26: 0.9019607843137255, 28: 0.5654761904761905, 29: 0.045454545454545456}
+Micro-average F1 score: 0.4337436640115858
+Weighted-average F1 score: 0.4062258587150746
+F1 score per class: {32: 0.0893854748603352, 2: 0.40431266846361186, 6: 0.29684601113172543, 39: 0.2692307692307692, 11: 0.5507246376811594, 12: 0.11059907834101383, 19: 0.6666666666666666, 24: 0.05825242718446602, 26: 0.8695652173913043, 28: 0.5, 29: 0.10687022900763359}
+Micro-average F1 score: 0.3655536028119508
+Weighted-average F1 score: 0.33286144929756933
+F1 score per class: {32: 0.0903954802259887, 2: 0.39276485788113696, 6: 0.2957486136783734, 39: 0.27287319422150885, 11: 0.5444126074498568, 12: 0.12060301507537688, 19: 0.6854460093896714, 24: 0.05581395348837209, 26: 0.883495145631068, 28: 0.4973544973544973, 29: 0.14285714285714285}
+Micro-average F1 score: 0.37129300118623965
+Weighted-average F1 score: 0.3388647307712454
+cur_acc:  ['0.6198', '0.3439']
+his_acc:  ['0.6198', '0.4337']
+cur_acc des:  ['0.5593', '0.2996']
+his_acc des:  ['0.5593', '0.3656']
+cur_acc rrf:  ['0.5647', '0.3043']
+his_acc rrf:  ['0.5647', '0.3713']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'NA or unknown', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by'])
+Labels: [ 7  7  7  7  7  9  9  9  9  9 27 27 27 27 27 31 31 31 31 31 40 40 40 40
+ 40 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41]
+Length Labels: 151
+self.majority_label: 41
+self.majority_ratio: 0.5
+Length self.majority_indices: 126
+Length self.minority_indices: 25
+CurrentTrain: epoch  0, batch     0 | loss: 58.0308329CurrentTrain: epoch  0, batch     1 | loss: 84.2914364CurrentTrain: epoch  1, batch     0 | loss: 54.7298850CurrentTrain: epoch  1, batch     1 | loss: 85.9341900CurrentTrain: epoch  2, batch     0 | loss: 51.6531584CurrentTrain: epoch  2, batch     1 | loss: 79.7259747CurrentTrain: epoch  3, batch     0 | loss: 49.5704811CurrentTrain: epoch  3, batch     1 | loss: 81.4996718CurrentTrain: epoch  4, batch     0 | loss: 47.0579847CurrentTrain: epoch  4, batch     1 | loss: 80.3386171CurrentTrain: epoch  5, batch     0 | loss: 48.0388585CurrentTrain: epoch  5, batch     1 | loss: 80.9111484CurrentTrain: epoch  6, batch     0 | loss: 45.4237234CurrentTrain: epoch  6, batch     1 | loss: 79.0664018CurrentTrain: epoch  7, batch     0 | loss: 45.6390872CurrentTrain: epoch  7, batch     1 | loss: 77.8525228CurrentTrain: epoch  8, batch     0 | loss: 43.7927004CurrentTrain: epoch  8, batch     1 | loss: 79.1246503CurrentTrain: epoch  9, batch     0 | loss: 43.3767089CurrentTrain: epoch  9, batch     1 | loss: 78.3887418
+MemoryTrain:  epoch  0, batch     0 | loss: 0.4811433MemoryTrain:  epoch  1, batch     0 | loss: 0.3515094MemoryTrain:  epoch  2, batch     0 | loss: 0.3179914MemoryTrain:  epoch  3, batch     0 | loss: 0.2461497MemoryTrain:  epoch  4, batch     0 | loss: 0.2401507MemoryTrain:  epoch  5, batch     0 | loss: 0.1874741MemoryTrain:  epoch  6, batch     0 | loss: 0.1587137MemoryTrain:  epoch  7, batch     0 | loss: 0.1158212MemoryTrain:  epoch  8, batch     0 | loss: 0.0875408MemoryTrain:  epoch  9, batch     0 | loss: 0.1041124
+
+F1 score per class: {32: 0.0, 2: 0.6153846153846154, 7: 0.8135593220338984, 40: 0.0, 9: 0.0, 11: 0.0, 12: 0.0, 19: 0.0, 24: 0.391304347826087, 26: 0.0, 27: 0.0, 28: 0.14285714285714285, 29: 0.0, 31: 0.24705882352941178}
+Micro-average F1 score: 0.2964824120603015
+Weighted-average F1 score: 0.25210515402373995
+F1 score per class: {32: 0.0, 2: 0.0, 6: 0.6666666666666666, 7: 0.6493506493506493, 40: 0.0, 9: 0.0, 11: 0.0, 12: 0.0, 19: 0.0, 24: 0.3673469387755102, 26: 0.0, 27: 0.0, 28: 0.16666666666666666, 29: 0.0, 31: 0.3870967741935484}
+Micro-average F1 score: 0.3234714003944773
+Weighted-average F1 score: 0.2858832712492965
+F1 score per class: {32: 0.0, 2: 0.0, 6: 0.6666666666666666, 7: 0.6666666666666666, 40: 0.0, 9: 0.0, 11: 0.0, 12: 0.0, 19: 0.0, 24: 0.3673469387755102, 26: 0.0, 27: 0.0, 28: 0.16666666666666666, 29: 0.0, 31: 0.3853211009174312}
+Micro-average F1 score: 0.32669322709163345
+Weighted-average F1 score: 0.2887181828183842
+
+F1 score per class: {32: 0.14814814814814814, 2: 0.2074074074074074, 6: 0.034934497816593885, 7: 0.8135593220338984, 40: 0.3625, 39: 0.31336405529953915, 11: 0.47802197802197804, 12: 0.14285714285714285, 9: 0.708994708994709, 19: 0.13043478260869565, 24: 0.1568627450980392, 26: 0.8768472906403941, 27: 0.03278688524590164, 28: 0.6438356164383562, 29: 0.047619047619047616, 31: 0.17355371900826447}
+Micro-average F1 score: 0.38235294117647056
+Weighted-average F1 score: 0.3448563242849746
+F1 score per class: {32: 0.07804878048780488, 2: 0.24516129032258063, 6: 0.02952029520295203, 7: 0.6172839506172839, 40: 0.3034188034188034, 39: 0.27037037037037037, 11: 0.47384615384615386, 12: 0.1111111111111111, 9: 0.6903553299492385, 19: 0.1267605633802817, 24: 0.10752688172043011, 26: 0.8695652173913043, 27: 0.035398230088495575, 28: 0.5653495440729484, 29: 0.06153846153846154, 31: 0.22702702702702704}
+Micro-average F1 score: 0.32275562788174667
+Weighted-average F1 score: 0.287043954989482
+F1 score per class: {32: 0.0784313725490196, 2: 0.23529411764705882, 6: 0.029304029304029304, 7: 0.6578947368421053, 40: 0.302771855010661, 39: 0.2786885245901639, 11: 0.4723926380368098, 12: 0.12612612612612611, 9: 0.7046632124352331, 19: 0.12162162162162163, 24: 0.10204081632653061, 26: 0.8737864077669902, 27: 0.036036036036036036, 28: 0.5653495440729484, 29: 0.034482758620689655, 31: 0.22459893048128343}
+Micro-average F1 score: 0.32513132430190766
+Weighted-average F1 score: 0.28846194172065537
+cur_acc:  ['0.6198', '0.3439', '0.2965']
+his_acc:  ['0.6198', '0.4337', '0.3824']
+cur_acc des:  ['0.5593', '0.2996', '0.3235']
+his_acc des:  ['0.5593', '0.3656', '0.3228']
+cur_acc rrf:  ['0.5647', '0.3043', '0.3267']
+his_acc rrf:  ['0.5647', '0.3713', '0.3251']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'NA or unknown', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by', 'person cause of death', 'organization political religious affiliation', 'organization stateorprovince of headquarters', 'person other family', 'person city of death'])
+Labels: [25 25 25 25 25 15 15 15 15 15 35 35 35 35 35 37 37 37 37 37 38 38 38 38
+ 38 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41]
+Length Labels: 180
+self.majority_label: 41
+self.majority_ratio: 0.5
+Length self.majority_indices: 155
+Length self.minority_indices: 25
+CurrentTrain: epoch  0, batch     0 | loss: 58.5094459CurrentTrain: epoch  0, batch     1 | loss: 85.4984566CurrentTrain: epoch  1, batch     0 | loss: 49.6047906CurrentTrain: epoch  1, batch     1 | loss: 83.7409755CurrentTrain: epoch  2, batch     0 | loss: 49.3710168CurrentTrain: epoch  2, batch     1 | loss: 80.3730871CurrentTrain: epoch  3, batch     0 | loss: 50.4769212CurrentTrain: epoch  3, batch     1 | loss: 81.1023083CurrentTrain: epoch  4, batch     0 | loss: 45.4724974CurrentTrain: epoch  4, batch     1 | loss: 78.7210312CurrentTrain: epoch  5, batch     0 | loss: 45.8885697CurrentTrain: epoch  5, batch     1 | loss: 81.1179174CurrentTrain: epoch  6, batch     0 | loss: 46.2025533CurrentTrain: epoch  6, batch     1 | loss: 81.0041868CurrentTrain: epoch  7, batch     0 | loss: 43.0362279CurrentTrain: epoch  7, batch     1 | loss: 78.2855414CurrentTrain: epoch  8, batch     0 | loss: 43.3943891CurrentTrain: epoch  8, batch     1 | loss: 80.5294147CurrentTrain: epoch  9, batch     0 | loss: 43.3378472CurrentTrain: epoch  9, batch     1 | loss: 78.9339079
+MemoryTrain:  epoch  0, batch     0 | loss: 0.5112488MemoryTrain:  epoch  1, batch     0 | loss: 0.4312504MemoryTrain:  epoch  2, batch     0 | loss: 0.3616598MemoryTrain:  epoch  3, batch     0 | loss: 0.2711367MemoryTrain:  epoch  4, batch     0 | loss: 0.2043839MemoryTrain:  epoch  5, batch     0 | loss: 0.1852700MemoryTrain:  epoch  6, batch     0 | loss: 0.1357635MemoryTrain:  epoch  7, batch     0 | loss: 0.1132624MemoryTrain:  epoch  8, batch     0 | loss: 0.0952636MemoryTrain:  epoch  9, batch     0 | loss: 0.0829251
+
+F1 score per class: {2: 0.0, 6: 0.0, 7: 0.0, 11: 0.0, 12: 0.0, 15: 0.8571428571428571, 19: 0.0, 24: 0.0, 25: 0.5333333333333333, 26: 0.0, 27: 0.0, 28: 0.0, 29: 0.0, 31: 0.0, 32: 0.0, 35: 0.5901639344262295, 37: 0.36633663366336633, 38: 0.36036036036036034, 40: 0.0}
+Micro-average F1 score: 0.3253333333333333
+Weighted-average F1 score: 0.2650757546987401
+F1 score per class: {2: 0.0, 6: 0.0, 7: 0.0, 9: 0.0, 11: 0.0, 12: 0.0, 15: 0.7272727272727273, 19: 0.0, 24: 0.0, 25: 0.735632183908046, 26: 0.0, 27: 0.0, 28: 0.0, 29: 0.0, 31: 0.0, 32: 0.0, 35: 0.6811594202898551, 37: 0.3577981651376147, 38: 0.3893805309734513, 40: 0.0}
+Micro-average F1 score: 0.33636363636363636
+Weighted-average F1 score: 0.27005113984353196
+F1 score per class: {2: 0.0, 6: 0.0, 7: 0.0, 11: 0.0, 12: 0.0, 15: 0.75, 19: 0.0, 24: 0.0, 25: 0.6904761904761905, 26: 0.0, 27: 0.0, 28: 0.0, 29: 0.0, 31: 0.0, 32: 0.0, 35: 0.6615384615384615, 37: 0.35944700460829493, 38: 0.3893805309734513, 40: 0.0}
+Micro-average F1 score: 0.3337250293772033
+Weighted-average F1 score: 0.2682881560200342
+
+F1 score per class: {2: 0.1391304347826087, 6: 0.22377622377622378, 7: 0.031496062992125984, 9: 0.78125, 11: 0.19393939393939394, 12: 0.28846153846153844, 15: 0.2647058823529412, 19: 0.45789473684210524, 24: 0.18181818181818182, 25: 0.5333333333333333, 26: 0.7052631578947368, 27: 0.1565217391304348, 28: 0.23255813953488372, 29: 0.8240740740740741, 31: 0.024691358024691357, 32: 0.6366782006920415, 35: 0.32727272727272727, 37: 0.09736842105263158, 38: 0.09049773755656108, 39: 0.0, 40: 0.25316455696202533}
+Micro-average F1 score: 0.29411764705882354
+Weighted-average F1 score: 0.2544303925005086
+F1 score per class: {2: 0.09302325581395349, 6: 0.20125786163522014, 7: 0.022222222222222223, 9: 0.5882352941176471, 11: 0.26737967914438504, 12: 0.2490842490842491, 15: 0.26229508196721313, 19: 0.46458923512747874, 24: 0.11650485436893204, 25: 0.735632183908046, 26: 0.6601941747572816, 27: 0.11475409836065574, 28: 0.10204081632653061, 29: 0.8181818181818182, 31: 0.05970149253731343, 32: 0.6086956521739131, 35: 0.2974683544303797, 37: 0.10249671484888305, 38: 0.11518324607329843, 39: 0.0, 40: 0.30039525691699603}
+Micro-average F1 score: 0.2863741339491917
+Weighted-average F1 score: 0.2515911369430357
+F1 score per class: {2: 0.09580838323353294, 6: 0.2111801242236025, 7: 0.022641509433962263, 9: 0.6756756756756757, 11: 0.2702702702702703, 12: 0.2594142259414226, 15: 0.28125, 19: 0.4573002754820937, 24: 0.1111111111111111, 25: 0.6904761904761905, 26: 0.6868686868686869, 27: 0.12598425196850394, 28: 0.1282051282051282, 29: 0.8256880733944955, 31: 0.05714285714285714, 32: 0.6072607260726073, 35: 0.3017543859649123, 37: 0.10090556274256145, 38: 0.10972568578553615, 39: 0.0, 40: 0.30158730158730157}
+Micro-average F1 score: 0.29003021148036257
+Weighted-average F1 score: 0.2535965682230908
+cur_acc:  ['0.6198', '0.3439', '0.2965', '0.3253']
+his_acc:  ['0.6198', '0.4337', '0.3824', '0.2941']
+cur_acc des:  ['0.5593', '0.2996', '0.3235', '0.3364']
+his_acc des:  ['0.5593', '0.3656', '0.3228', '0.2864']
+cur_acc rrf:  ['0.5647', '0.3043', '0.3267', '0.3337']
+his_acc rrf:  ['0.5647', '0.3713', '0.3251', '0.2900']
+seen_des: dict_keys(['person countries of residence', 'organization top members employees', 'organization member of', 'person origin', 'person title', 'organization country of headquarters', 'NA or unknown', 'person date of birth', 'person stateorprovince of birth', 'person parents', 'person employee of', 'person stateorprovince of death', 'person country of birth', 'organization website', 'organization shareholders', 'organization dissolved', 'organization founded by', 'person cause of death', 'organization political religious affiliation', 'organization stateorprovince of headquarters', 'person other family', 'person city of death', 'organization subsidiaries', 'organization parents', 'organization alternate names', 'organization city of headquarters', 'person siblings'])
+Labels: [ 1  1  1  1  1 14 14 14 14 14 22 22 22 22 22  3  3  3  3  3 34 34 34 34
+ 34 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41
+ 41 41 41 41 41 41 41]
+Length Labels: 223
+self.majority_label: 41
+self.majority_ratio: 0.5
+Length self.majority_indices: 198
+Length self.minority_indices: 25
+CurrentTrain: epoch  0, batch     0 | loss: 66.9370769CurrentTrain: epoch  0, batch     1 | loss: 84.7102444CurrentTrain: epoch  1, batch     0 | loss: 57.1064171CurrentTrain: epoch  1, batch     1 | loss: 81.7210972CurrentTrain: epoch  2, batch     0 | loss: 61.1680451CurrentTrain: epoch  2, batch     1 | loss: 81.2674592CurrentTrain: epoch  3, batch     0 | loss: 54.0745496CurrentTrain: epoch  3, batch     1 | loss: 84.7495376CurrentTrain: epoch  4, batch     0 | loss: 50.1206708CurrentTrain: epoch  4, batch     1 | loss: 78.8872459CurrentTrain: epoch  5, batch     0 | loss: 52.8394264CurrentTrain: epoch  5, batch     1 | loss: 78.4871663CurrentTrain: epoch  6, batch     0 | loss: 48.8059967CurrentTrain: epoch  6, batch     1 | loss: 80.6226282CurrentTrain: epoch  7, batch     0 | loss: 49.8821742CurrentTrain: epoch  7, batch     1 | loss: 80.2174315CurrentTrain: epoch  8, batch     0 | loss: 47.8611697CurrentTrain: epoch  8, batch     1 | loss: 82.1052052CurrentTrain: epoch  9, batch     0 | loss: 47.8620206CurrentTrain: epoch  9, batch     1 | loss: 79.1129149
+MemoryTrain:  epoch  0, batch     0 | loss: 0.6045826MemoryTrain:  epoch  1, batch     0 | loss: 0.4933911MemoryTrain:  epoch  2, batch     0 | loss: 0.3763185MemoryTrain:  epoch  3, batch     0 | loss: 0.2740660MemoryTrain:  epoch  4, batch     0 | loss: 0.2177604MemoryTrain:  epoch  5, batch     0 | loss: 0.1840420MemoryTrain:  epoch  6, batch     0 | loss: 0.1540132MemoryTrain:  epoch  7, batch     0 | loss: 0.1255350MemoryTrain:  epoch  8, batch     0 | loss: 0.1201454MemoryTrain:  epoch  9, batch     0 | loss: 0.0985113
