@@ -198,10 +198,10 @@ class Manager(object):
                 loss_retrieval = MutualInformationLoss(weights=label_weights)
                 loss2 = loss_retrieval(hidden, labels_des, new_matrix_labels_tensor)
 
-                loss_retrieval_1 = MutualInformationLoss()
+                loss_retrieval_1 = MutualInformationLoss(weights=label_weights)
                 loss2_1 = loss_retrieval_1(hidden, rd, new_matrix_labels_tensor)
 
-                loss_retrieval_2 = MutualInformationLoss()
+                loss_retrieval_2 = MutualInformationLoss(weights=label_weights)
                 loss2_2 = loss_retrieval_2(rd, labels_des, new_matrix_labels_tensor)
 
 
@@ -215,7 +215,7 @@ class Manager(object):
                 # print(f"loss1: {loss1}, loss2: {loss2}, loss3: {loss3}, loss4: {loss4}")
 
                 # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
-                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 0.5*loss4 + 0.5*loss3_1 + 0.5*loss3_2 + 0.5*loss2_1 + 0.5*loss2_2
+                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4 + 0.5*loss3_1 + 0.5*loss3_2 + 0.5*loss2_1 + 0.5*loss2_2
             
                 
                 optimizer.zero_grad()
