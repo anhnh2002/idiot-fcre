@@ -195,13 +195,13 @@ class Manager(object):
                 loss3_2 = torch.stack(loss3_2).mean()
 
 
-                loss_retrieval = MutualInformationLoss(weights=label_weights)
+                loss_retrieval = MutualInformationLoss()
                 loss2 = loss_retrieval(hidden, labels_des, new_matrix_labels_tensor)
 
-                loss_retrieval_1 = MutualInformationLoss(weights=label_weights)
+                loss_retrieval_1 = MutualInformationLoss()
                 loss2_1 = loss_retrieval_1(hidden, rd, new_matrix_labels_tensor)
 
-                loss_retrieval_2 = MutualInformationLoss(weights=label_weights)
+                loss_retrieval_2 = MutualInformationLoss()
                 loss2_2 = loss_retrieval_2(rd, labels_des, new_matrix_labels_tensor)
 
 

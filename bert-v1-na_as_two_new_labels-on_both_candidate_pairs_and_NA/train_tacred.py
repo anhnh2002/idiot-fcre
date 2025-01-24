@@ -278,6 +278,9 @@ class Manager(object):
         labels = np.array(labels)
         preds[preds == self.config.na_id] = self.config.na_id_2
         labels[labels == self.config.na_id] = self.config.na_id_2
+
+        preds = list(preds)
+        labels = list(labels)
         
         unique_labels = list(unique_labels)
 
