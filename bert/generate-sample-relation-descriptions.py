@@ -50,7 +50,7 @@ Definition:
 - {trigger}:
 """.strip()
 
-file = "/Users/anhnguyenhoang/Desktop/vscode/python3.10/fcre/bert/data/CFRLTacred/CFRLdata_6_100_5_5/train_0.txt"
+file = "/home/thanhnx/hanh/idiot-fcre/bert/data/CFRLTacred/CFRLdata_6_100_5_5/test_0.txt"
 
 raw_data = []
 
@@ -64,7 +64,7 @@ import re
 import json
 
 # process and save to txt file line by line
-with open("/Users/anhnguyenhoang/Desktop/vscode/python3.10/fcre/bert/data/CFRLTacred/CFRLdata_6_100_5_5/train_1.txt", "w") as f:
+with open("/home/thanhnx/hanh/idiot-fcre/bert/data/CFRLTacred/CFRLdata_6_100_5_5/test_1.txt", "w") as f:
     for data in tqdm(raw_data):
         text, head, tail = data[2], data[3], data[5]
         prompt = extract_trigger_prompt.format(text=text, head=head, tail=tail)
