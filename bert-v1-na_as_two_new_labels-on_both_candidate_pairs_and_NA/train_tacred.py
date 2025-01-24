@@ -272,6 +272,12 @@ class Manager(object):
             unique_labels.remove(self.config.na_id)
         if self.config.na_id_2 in unique_labels:
             unique_labels.remove(self.config.na_id_2)
+
+        # convert preds, labels to numpy array and replace na_id with na_id_2
+        preds = np.array(preds)
+        labels = np.array(labels)
+        preds[preds == self.config.na_id] = self.config.na_id_2
+        labels[labels == self.config.na_id] = self.config.na_id_2
         
         unique_labels = list(unique_labels)
 
