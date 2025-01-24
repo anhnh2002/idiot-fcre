@@ -214,8 +214,8 @@ class Manager(object):
 
                 # print(f"loss1: {loss1}, loss2: {loss2}, loss3: {loss3}, loss4: {loss4}")
 
-                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
-                # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 0.5*loss4 + 0.5*loss3_1 + 0.5*loss3_2 + 0.5*loss2_1 + 0.5*loss2_2
+                # loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4
+                loss = 1*loss1 + 2*loss2 + 0.5*loss3 + 1*loss4 + 0.5*loss3_1 + 0.5*loss3_2 + 0.5*loss2_1 + 0.5*loss2_2
             
                 
                 optimizer.zero_grad()
